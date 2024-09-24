@@ -23,12 +23,10 @@ function Login() {
             const data = await response.json();
 
             if (response.ok) {
-                // Successfully logged in
                 localStorage.setItem('token', data.token);
                 console.log('Logged in successfully -');
                 navigate('/');
             } else {
-                // Handle error responses
                 console.error('Login failed:', data);
                 setErr(data || 'Login failed');
             }

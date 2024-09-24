@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function Index() {
-    const [data, setData] = useState("");
+    const [chats, setChats] = useState([]);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -14,13 +14,20 @@ function Index() {
         })
           .then(res => res.json())
           .then(data => {
-            setData(data)
+            setChats(data)
             console.log(data);
           })
+          .catch(error => console.error('Fetch error:', error));
     }, [token]);
     return (
       <>
-        <h1>{data.message}</h1>
+        <ul>
+            {chats.map((chat) => (
+                <li key={chat.id}> 
+                    <h1>{chat.username}</h1>
+                </li>
+            ))} 
+        </ul>
       </>
     )
 }

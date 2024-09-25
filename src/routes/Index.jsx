@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Index() {
     const [chats, setChats] = useState([]);
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:3000/', {
@@ -23,8 +25,10 @@ function Index() {
       <>
         <ul>
             {chats.map((chat) => (
-                <li key={chat.id}> 
+                <li key={chat.id} > 
+                  <div onClick={() => navigate(`/chat/${chat.id}`)}>
                     <h1>{chat.username}</h1>
+                  </div>
                 </li>
             ))} 
         </ul>

@@ -1,0 +1,44 @@
+.profile-sidebar {
+    position: fixed; /* Fixed position */
+    right: 0; /* Aligns the sidebar to the right of the screen */
+    top: 0;
+    width: 300px; /* Set the width of the sidebar */
+    height: 100%; /* Full height */
+    background-color: #f8f9fa; /* Background color for the sidebar */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto; /* Enables scrolling if the content exceeds the viewport height */
+}
+
+.profile-sidebar img {
+    border-radius: 50%; /* Makes the profile picture circular */
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-details button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.profile-details button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

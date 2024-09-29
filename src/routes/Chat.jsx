@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import Profile from './Profile';
 import '../Chat.css';
 
 function Chat() {
     const [chat, setChat] = useState([]);
     const [userId, setUserId] = useState(null);
     const [newMessage, setNewMessage] = useState("");
+    const [showProfile, setShowProfile] = useState(false);
     const { contactid } = useParams();
     const token = localStorage.getItem('token');
 
@@ -48,9 +50,20 @@ function Chat() {
             console.error(err);
         }
     };
+    const icon = {
+        height: '45px',
+        width: '45px',
+    };
 
     return (
         <div>
+            <div>
+                <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" 
+                    alt="pfp" style={icon} 
+                    onClick={() => setShowProfile(true)} 
+                />
+            </div>
             <ul>
                 {chat.map((c) => (
                     <li key={c.id}>
@@ -73,6 +86,12 @@ function Chat() {
                     <button type="submit">Send</button>
                 )}
             </form>
+            {showProfile && (
+                <div>
+                    <Profile  contactid={contactid} />
+                    <button onClick={() => setShowProfile(false)}>Hide</button>
+                </div>
+            )}
         </div>
     )
 }

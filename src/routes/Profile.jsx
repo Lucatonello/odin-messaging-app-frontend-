@@ -1,42 +1,64 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import '../Profile.css';
 
-function Profile() {
+function Profile({ contactid }) {
     const [data, setData] = useState([]);
+    const [userId, setUserId] = useState(null);
     const { id } = useParams();
     const token = localStorage.getItem('token');
 
+    console.log('contact id in profile module: ', contactid);
+
     useEffect(() => {
-        fetch(`http://localhost:3000/profiles/${id}`, {
+        if (token) {
+            const decoded = jwtDecode(token);
+            setUserId(decoded.id);
+        }
+        fetch(`http://localhost:3000/profiles/${contactid}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-type': 'application/json',
             }
         })
-          .then(res=> res.json())
+          .then(res => res.json())
           .then(data => {
             setData(data[0]);
           })
           .catch(err => console.error(err));
-    }, [token, id]);
-
-    console.log('data state:', data);
+    }, [token, contactid]);
 
     return (
-        <div>
+        <div className="profile-sidebar">
             {data.profilepic ? (
-                <img src={data.profilepic} alt={'../images/defaultpp'} />
+                <img src={data.profilepic} alt="Profile Picture" />
+            ) : (
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
+                    alt="Default Profile Picture"
+                />
+            )}
 
-            ): <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" alt='pfp' />}
-            <h1>{data.username}</h1>
-            <button>Text</button>
-            <div>
+            <div className="profile-details">
+                <h1>{data.username}</h1>
+                {userId === id && (
+                    <div className="edit-buttons">
+                        <button>Edit Profile</button>
+                    </div>
+                )}
+                <button>Text</button>
+            </div>
+
+            <div className="profile-details">
                 <p>Bio: {data.bio}</p>
+                {userId === id && <button>Edit Bio</button>}
                 <p>Number: {data.number}</p>
+                {userId === id && <button>Edit Number</button>}
             </div>
         </div>
-    )
+    );
 }
 
 export default Profile;

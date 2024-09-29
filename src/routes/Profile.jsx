@@ -48,7 +48,6 @@ function Profile({ contactid }) {
                         <button>Edit Profile</button>
                     </div>
                 )}
-                <button>Text</button>
             </div>
 
             <div className="profile-details">

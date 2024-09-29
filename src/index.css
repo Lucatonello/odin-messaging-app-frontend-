@@ -1,68 +1,96 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+/* Styling for the chat list header (search bar + add contact icon) */
+.chatListHeader {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0; /* Background color for header */
+  margin-bottom: 15px; /* Space below the header */
+  position: relative; /* Position relative to handle centering */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Styling for the search container */
+.searchContainer {
+  position: absolute; /* Position the search bar absolutely */
+  left: 50%; /* Start from the center */
+  transform: translateX(-50%); /* Translate back to center */
+  width: 70%; /* Adjust width of the search bar container */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Styling for the search bar */
+.searchBar {
+  width: 70%; /* Ensure the search bar takes up the entire container width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.searchBar:focus {
+  border-color: #888; /* Change border color on focus */
+}
+
+/* Styling for the add contact icon */
+.addContactIcon {
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: transform 0.3s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.addContactIcon:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+/* Styling for the chat list remains the same */
+.chatList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.chatItem {
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.chatItem:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.chatUsername {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .chatList {
+    max-width: 100%;
+    padding: 0 15px;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  .chatUsername {
+    font-size: 1.2rem;
   }
 }

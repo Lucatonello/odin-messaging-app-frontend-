@@ -65,7 +65,6 @@ ul {
     border-radius: 20px;
     padding: 10px;
     margin: 0;
-    /* line-height: 30px; */
 }
 .send {
     margin-left: 10px;
@@ -73,4 +72,13 @@ ul {
     display: flex;
     align-items: center; 
     justify-content: center;
+}
+.hideProfile-container {
+    margin-left: auto; /* Pushes the button to the right */
+}
+.hideProfile {
+    background-color: #f5f5f5; /* Optional, for a better look */
+    border: none;
+    cursor: pointer;
+    padding: 10px;
 }

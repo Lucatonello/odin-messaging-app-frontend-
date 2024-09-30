@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import arrow from '../img/back-arrow.png';
 import '../Profile.css';
 
-function Profile({ contactid, admin }) {
-    const [editMode, setEditMode] = useState(false);
+function Profile({ contactid, admin, onHide }) {
+    const [editUsername, setEditUsername] = useState(false);
+    const [editBio, setEditBio] = useState(false);
+
     const [newUsername, setNewUsername] = useState("");
     const [newBio, setNewBio] = useState("");
     const [data, setData] = useState([]);
@@ -25,7 +28,7 @@ function Profile({ contactid, admin }) {
 
     const handleUserNameChange = async () => {
         if (admin) {
-            setEditMode(false);
+            setEditUsername(false);
 
             setData((prevData) => ({
               ...prevData,
@@ -45,7 +48,7 @@ function Profile({ contactid, admin }) {
       };
       const handleBioChange = async () => {
         if (admin) {
-            setEditMode(false);
+            setEditBio(false);
 
             setData((prevData) => ({
               ...prevData,
@@ -58,7 +61,7 @@ function Profile({ contactid, admin }) {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify({ type: 'bio', newUsername: newUsername })
+                body: JSON.stringify({ type: 'bio', newData: newBio })
             })
         }
       };
@@ -67,17 +70,17 @@ function Profile({ contactid, admin }) {
     return (
         <div className="profile-sidebar">
             {data.profilepic ? (
-                <img src={data.profilepic} alt="Profile Picture" />
+                <img src={data.profilepic} alt="Profile Picture" className="pfp" />
             ) : (
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
                     alt="Default Profile Picture"
+                    className="pfp"
                 />
             )}
-            {admin && <button>Edit profile picture</button>}
             
             <div className="profile-details">
-                {editMode ? (
+                {editUsername ? (
                     <input
                             type="text"
                             value={newUsername}
@@ -88,21 +91,24 @@ function Profile({ contactid, admin }) {
                             <h1>{data.username}</h1>
                         )}
 
-                        {admin && !editMode && (
+                        {admin && !editUsername && (
                             <button onClick={() => {
-                            setEditMode(true);
+                            setEditUsername(true);
                             setNewUsername(data.username); // Set the initial value to the current username
                             }}>
                             Change username
                             </button>
                         )}
 
-                        {editMode && (
-                            <button onClick={handleUserNameChange}>Save</button>
+                        {editUsername && (
+                            <div>
+                                <button style={{ marginRight: '5px'}} onClick={handleUserNameChange}>Save</button>
+                                <button onClick={() => setEditUsername(false)}>Cancel</button>
+                            </div>    
                         )}
             </div>
             <div className="profile-details">
-                {editMode ? (
+                {editBio ? (
                     <input
                             type="text"
                             value={newBio}
@@ -110,27 +116,30 @@ function Profile({ contactid, admin }) {
                             placeholder="Enter new bio"
                             />
                         ) : (
-                            <h1>{data.bio}</h1>
+                            <div className={data.bio ? 'bio' : ''}> 
+                                <p>{data.bio}</p>
+                            </div>
                         )}
 
-                        {admin && !editMode && (
+                        {admin && !editBio && (
                             <button onClick={() => {
-                            setEditMode(true);
-                            setNewBio(data.bio); // Set the initial value to the current username
+                            setEditBio(true);
+                            setNewBio(data.bio); 
                             }}>
                             Change bio
                             </button>
                         )}
 
-                        {editMode && (
-                            <button onClick={handleBioChange}>Save</button>
+                        {editBio && (
+                            <div>
+                                <button style={{ marginRight: '5px'}} onClick={handleBioChange}>Save</button>
+                                <button onClick={() => setEditBio(false)}>Cancel</button>
+                            </div>
                         )}
             </div>
-
-            <div className="profile-details">
-                <p>Bio: {data.bio}</p> {admin && <button>Change bio</button>}
-                <p>Number: {data.number}</p> {admin && <button>Change bio</button>}
-            </div>
+            <button onClick={onHide} className="hideButton">
+                <img src={arrow} alt="<-" style={{ height: '35px', width: '35px'}} />
+            </button>
         </div>
     );
 }

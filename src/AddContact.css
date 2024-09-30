@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+}
+.messageFormContainer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.messageForm {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    font-family: Arial, sans-serif;
+}
+
+.messageForm label {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.messageForm input, .messageForm select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.messageForm input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.formDivider {
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+#hideButton {
+    background-color: #ffffff00;
+    color: black;
+}
+.messageForm button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.messageForm button:hover {
+    background-color: #0056b3;
+}
+
+.messageForm button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

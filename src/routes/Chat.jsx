@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Profile from './Profile';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 import '../Chat.css';
 
 function Chat() {
@@ -48,8 +48,10 @@ function Chat() {
                 }
             })
             .catch(error => console.error('Fetch error:', error));
+        } else {
+            navigate('/login')
         }
-    }, [contactid, token, userId]);
+    }, [contactid, token, userId, navigate]);
 
     const handleNewMessage = async () => {
         try {
@@ -109,14 +111,13 @@ function Chat() {
                             <img className='send' src={bottomArrow} alt="Send" style={{ width: '30px', height: '30px' }} />
                         </button>
                     )}
+                    {showProfile && (
+                        <div className="hideProfile-container">
+                        <Profile contactid={contactid} admin={false} onHide={() => setShowProfile(false)}/>
+                        </div>
+                    )}
                 </form>
             </div>
-            {showProfile && (
-                <div>
-                    <Profile  contactid={contactid} />
-                    <button onClick={() => setShowProfile(false)}>Hide</button>
-                </div>
-            )}
         </div>
     )
 }

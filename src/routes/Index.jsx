@@ -6,6 +6,7 @@ import Profile from './Profile';
 import AddContact from './AddContact';
 import addContactIcon from '../img/add-contact.png'
 import defaultPfp from '../img/user.png';
+import logout from '../img/logoute.png'
 
 function Index() {
     const [chats, setChats] = useState([]);
@@ -25,8 +26,8 @@ function Index() {
     }, [token]);
 
     useEffect(() => {
-
-        fetch('http://localhost:3000/', {
+      if (token) {
+          fetch('http://localhost:3000/', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -39,11 +40,20 @@ function Index() {
             console.log(data);
           })
           .catch(error => console.error('Fetch error:', error));
-    }, [token]);
+        } else {
+          navigate('/login')
+        }
+        
+    }, [token, navigate]);
 
     const filteredChats = chats.filter(chat =>
       chat.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      navigate('/login');
+    };
 
     return (
       <>
@@ -67,6 +77,12 @@ function Index() {
             className="addContactIcon" 
             onClick={() => setShowProfile(true)} 
           />
+          <img 
+            src={logout} 
+            alt="Logout" 
+            className="addContactIcon" 
+            onClick={handleLogout} 
+          />
         </div>
   
         <ul className="chatList">
@@ -80,11 +96,10 @@ function Index() {
         </ul>
         {showAddContact && (
           <div>
-            <AddContact />
-            <button onClick={() => setShowAddContact(false)}>Hide</button>
+            <AddContact  onHide={() => setShowAddContact(false)}/>
           </div>
         )}
-        {showProfile && (<Profile contactid={userId} admin={true}/>)}
+        {showProfile && (<Profile contactid={userId} admin={true} onHide={() => setShowProfile(false)}/>)}
       </>
     );
 }

@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 import '../Profile.css';
 
-function Profile({ contactid }) {
+function Profile({ contactid, admin }) {
+    const [editMode, setEditMode] = useState(false);
+    const [newUsername, setNewUsername] = useState("");
+    const [newBio, setNewBio] = useState("");
     const [data, setData] = useState([]);
-    const [userId, setUserId] = useState(null);
-    const { id } = useParams();
     const token = localStorage.getItem('token');
 
-    console.log('contact id in profile module: ', contactid);
-
     useEffect(() => {
-        if (token) {
-            const decoded = jwtDecode(token);
-            setUserId(decoded.id);
-        }
         fetch(`http://localhost:3000/profiles/${contactid}`, {
             method: 'GET',
             headers: {
@@ -30,6 +23,47 @@ function Profile({ contactid }) {
           .catch(err => console.error(err));
     }, [token, contactid]);
 
+    const handleUserNameChange = async () => {
+        if (admin) {
+            setEditMode(false);
+
+            setData((prevData) => ({
+              ...prevData,
+              username: newUsername,
+            }));
+    
+            await fetch(`http://localhost:3000/editData/${contactid}`, {
+                 method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({ type: 'username', newData: newUsername })
+            })
+    
+        }
+      };
+      const handleBioChange = async () => {
+        if (admin) {
+            setEditMode(false);
+
+            setData((prevData) => ({
+              ...prevData,
+              bio: newBio,
+            }));
+    
+            await fetch(`http://localhost:3000/editData/${contactid}`, {
+                 method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({ type: 'bio', newUsername: newUsername })
+            })
+        }
+      };
+    
+
     return (
         <div className="profile-sidebar">
             {data.profilepic ? (
@@ -40,21 +74,62 @@ function Profile({ contactid }) {
                     alt="Default Profile Picture"
                 />
             )}
-
+            {admin && <button>Edit profile picture</button>}
+            
             <div className="profile-details">
-                <h1>{data.username}</h1>
-                {userId === id && (
-                    <div className="edit-buttons">
-                        <button>Edit Profile</button>
-                    </div>
-                )}
+                {editMode ? (
+                    <input
+                            type="text"
+                            value={newUsername}
+                            onChange={(e) => setNewUsername(e.target.value)}
+                            placeholder="Enter new username"
+                            />
+                        ) : (
+                            <h1>{data.username}</h1>
+                        )}
+
+                        {admin && !editMode && (
+                            <button onClick={() => {
+                            setEditMode(true);
+                            setNewUsername(data.username); // Set the initial value to the current username
+                            }}>
+                            Change username
+                            </button>
+                        )}
+
+                        {editMode && (
+                            <button onClick={handleUserNameChange}>Save</button>
+                        )}
+            </div>
+            <div className="profile-details">
+                {editMode ? (
+                    <input
+                            type="text"
+                            value={newBio}
+                            onChange={(e) => setNewBio(e.target.value)}
+                            placeholder="Enter new bio"
+                            />
+                        ) : (
+                            <h1>{data.bio}</h1>
+                        )}
+
+                        {admin && !editMode && (
+                            <button onClick={() => {
+                            setEditMode(true);
+                            setNewBio(data.bio); // Set the initial value to the current username
+                            }}>
+                            Change bio
+                            </button>
+                        )}
+
+                        {editMode && (
+                            <button onClick={handleBioChange}>Save</button>
+                        )}
             </div>
 
             <div className="profile-details">
-                <p>Bio: {data.bio}</p>
-                {userId === id && <button>Edit Bio</button>}
-                <p>Number: {data.number}</p>
-                {userId === id && <button>Edit Number</button>}
+                <p>Bio: {data.bio}</p> {admin && <button>Change bio</button>}
+                <p>Number: {data.number}</p> {admin && <button>Change bio</button>}
             </div>
         </div>
     );

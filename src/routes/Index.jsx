@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import '../Index.css';
-import addContactIcon from '../img/add-contact.png'
+import Profile from './Profile';
 import AddContact from './AddContact';
+import addContactIcon from '../img/add-contact.png'
+import defaultPfp from '../img/user.png';
 
 function Index() {
     const [chats, setChats] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [showAddContact, setShowAddContact] = useState(false);
+    const [showProfile, setShowProfile] = useState(false);
+    const [userId, setUserId] = useState(null);
+
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
     useEffect(() => {
+      if (token) {
+        const decoded = jwtDecode(token);
+        setUserId(decoded.id);
+      }
+    }, [token]);
+
+    useEffect(() => {
+
         fetch('http://localhost:3000/', {
             method: 'GET',
             headers: {
@@ -41,12 +55,17 @@ function Index() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-
           <img 
             src={addContactIcon} 
             alt="Add Contact" 
             className="addContactIcon" 
             onClick={() => setShowAddContact(true)} 
+          />
+          <img 
+            src={defaultPfp} 
+            alt="Add Contact" 
+            className="addContactIcon" 
+            onClick={() => setShowProfile(true)} 
           />
         </div>
   
@@ -65,7 +84,7 @@ function Index() {
             <button onClick={() => setShowAddContact(false)}>Hide</button>
           </div>
         )}
-        
+        {showProfile && (<Profile contactid={userId} admin={true}/>)}
       </>
     );
 }

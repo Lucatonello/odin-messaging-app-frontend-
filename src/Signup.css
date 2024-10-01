@@ -77,3 +77,13 @@
     margin-bottom: 10px;
     display: block;
 }
+@media (max-width: 600px) {
+    .form {
+        width: 300px;
+    }
+}
+@media (max-width: 380px) {
+    .form {
+        width: 250px;
+    }
+}

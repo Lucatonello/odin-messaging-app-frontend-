@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import arrow from '../img/back-arrow.png';
-import defaultPfp from '../img/user.png';
+import defaultPfp from '../uploads/user.png';
 import styles from '../Profile.module.css';
+
 
 function Profile({ contactid, admin, onHide }) {
     const [editUsername, setEditUsername] = useState(false);
@@ -23,6 +24,7 @@ function Profile({ contactid, admin, onHide }) {
           .then(res => res.json())
           .then(data => {
             setData(data[0]);
+            console.log('data0', data[0]);
           })
           .catch(err => console.error(err));
     }, [token, contactid]);
@@ -79,7 +81,6 @@ function Profile({ contactid, admin, onHide }) {
                     className={styles.pfp}
                 />
             )}
-            
             <div className={styles.profileDetails}>
                 {editUsername ? (
                     <input
@@ -104,7 +105,6 @@ function Profile({ contactid, admin, onHide }) {
                         Change username
                     </button>
                 )}
-
                 {editUsername && (
                     <div>
                         <button className={styles.editButtons} style={{ marginRight: '5px' }} onClick={handleUserNameChange}>

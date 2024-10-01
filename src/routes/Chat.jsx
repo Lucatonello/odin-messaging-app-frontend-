@@ -75,7 +75,7 @@ function Chat() {
     };
 
     return (
-        <div className={styles.chatContainer}>
+        <div className={ !showProfile ? styles.chatContainer : styles.chatContainer2 }>
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 <img 

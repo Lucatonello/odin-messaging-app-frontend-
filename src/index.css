@@ -1,11 +1,13 @@
-/* Styling for the no chats message */
 .noChatsMessage {
   text-align: center; /* Center the message */
   font-size: 1.5rem; /* Increase font size */
   color: #555; /* Subtle text color */
   margin: 20px 0; /* Add some space above and below */
 }
-
+.iconGroup {
+  display: flex;
+  gap: 10px; /* Space between icons */
+}
 /* Styling for the send first text button */
 .sendFirstTextButton {
   padding: 10px 20px; /* Add padding */
@@ -31,6 +33,16 @@
   margin-bottom: 15px; /* Space below the header */
   position: relative; /* Position relative to handle centering */
 }
+.chatListHeader2 {
+  max-width: calc(100% - 380px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0; /* Background color for header */
+  margin-bottom: 15px; /* Space below the header */
+  position: relative; /* Position relative to handle centering */
+}
 
 /* Styling for the search container */
 .searchContainer {
@@ -42,7 +54,8 @@
 
 /* Styling for the search bar */
 .searchBar {
-  width: 70%; /* Ensure the search bar takes up the entire container width */
+  flex: 1;
+  width: 300px; /* Ensure the search bar takes up the entire container width */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -50,7 +63,16 @@
   outline: none;
   transition: border 0.3s ease;
 }
-
+.searchBar2 {
+  flex: 1;
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
 .searchBar:focus {
   border-color: #888; /* Change border color on focus */
 }
@@ -61,6 +83,7 @@
   height: 30px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  margin-left: 50px;
 }
 
 .addContactIcon:hover {
@@ -78,7 +101,7 @@
 }
 
 .chatItem {
-  margin: 10px 0;
+  margin: 10px 5px;
   padding: 15px;
   border-radius: 10px;
   background-color: #f5f5f5;
@@ -105,15 +128,31 @@
   font-weight: 500;
   color: #333;
 }
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .chatList {
-    max-width: 100%;
-    padding: 0 15px;
+.addContactIcon:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+@media (max-width: 826px) {
+  .chatListHeader2 {
+    max-width: calc(100% - 280px);
   }
-
-  .chatUsername {
-    font-size: 1.2rem;
+}
+@media (max-width: 650px) {
+  .chatListHeader2 {
+    max-width: calc(100% - 180px);
+  }
+}
+@media (max-width: 830px) {
+  .chatListHeader2 {
+    max-width: calc(100% - 280px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0; /* Background color for header */
+    margin-bottom: 15px; /* Space below the header */
+    position: relative; /* Position relative to handle centering */
+  }
+  .addContactIcon {
+    margin-left: 15px;
   }
 }

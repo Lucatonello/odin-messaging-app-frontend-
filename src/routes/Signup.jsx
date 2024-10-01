@@ -7,22 +7,23 @@ function Signup() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
     const [bio, setBio] = useState("Hello World, this is my bio!");
+    const [pfp, setPfp] = useState(null);
     const [err, setErr] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log('username: ', username);
-        console.log('password: ', password);
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('bio', bio);
+        formData.append('pfp', pfp);
 
         try {
             const response = await fetch('http://localhost:3000/users/signup', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password, bio }),
+                body: formData,
             });
             if (!response.ok) {
                 throw new Error('response not okay', response); 
@@ -35,6 +36,11 @@ function Signup() {
             setErr(err.message);
         }
     }
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setPfp(file);
+    };
 
     return (
         <div className="container">
@@ -69,6 +75,12 @@ function Signup() {
                 className="input"
                 onFocus={(e) => e.target.style.borderColor = '#f5a462'}
                 onBlur={(e) => e.target.style.borderColor = '#ddd'}
+            />
+            <label htmlFor="fileUpload">Profile picture</label>
+            <input 
+                type="file" 
+                name="pfp"
+                onChange={handleFileChange}
             />
             <button type="submit" className="button">Sign up</button>
         </form>

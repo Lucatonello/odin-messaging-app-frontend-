@@ -45,7 +45,6 @@ function Index() {
         }
         
     }, [token, navigate]);
-
     const filteredChats = chats.filter(chat =>
       chat.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -57,59 +56,71 @@ function Index() {
 
     return (
       <>
-        <div className="chatListHeader">
-          <input
-            type="text"
-            className="searchBar"
-            placeholder="Search chats..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <img 
-            src={addContactIcon} 
-            alt="Add Contact" 
-            className="addContactIcon" 
-            onClick={() => setShowAddContact(true)} 
-          />
-          <img 
-            src={defaultPfp} 
-            alt="Add Contact" 
-            className="addContactIcon" 
-            onClick={() => setShowProfile(true)} 
-          />
-          <img 
-            src={logout} 
-            alt="Logout" 
-            className="addContactIcon" 
-            onClick={handleLogout} 
-          />
-        </div>
+        <div className="layoutContainer">
+          <div className="mainContent">
+            <div className={!showProfile ? "chatListHeader" : "chatListHeader2"}>
+              <input
+                type="text"
+                className={!showProfile ? "searchBar" : "searchBar2"}
+                placeholder="Search chats..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="iconGroup">
+                <img 
+                  src={addContactIcon} 
+                  alt="Add Contact" 
+                  className="addContactIcon" 
+                  onClick={() => setShowAddContact(true)} 
+                />
+                <img 
+                  src={defaultPfp} 
+                  alt="Profile" 
+                  className="addContactIcon" 
+                  onClick={() => setShowProfile(true)} 
+                />
+                <img 
+                  src={logout} 
+                  alt="Logout" 
+                  className="addContactIcon" 
+                  onClick={handleLogout} 
+                />
+                </div>
+            </div>
 
-        {chats.length !== 0 ? (
-          <ul className="chatList">
-          {filteredChats.map((chat) => (
-            <li key={chat.id} className="chatItem">
-              <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
-                <img src={defaultPfp} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
-                <h1 className="chatUsername">{chat.username}</h1>
+            {chats.length !== 0 ? (
+              <ul className="chatList">
+                {filteredChats.map((chat) => (
+                  <li key={chat.id} className="chatItem">
+                    <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
+                      <img src={defaultPfp} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
+                      <h1 className="chatUsername">{chat.username}</h1>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="noChatsMessage">
+                <h1>No chats yet...</h1>
+                <button className="sendFirstTextButton" onClick={() => setShowAddContact(true)}>Send your first text</button>
               </div>
-            </li>
-          ))}
-        </ul>
-        ): (
-          <div className="noChatsMessage">
-            <h1>No chats yet...</h1>
-            <button className="sendFirstTextButton" onClick={() => setShowAddContact(true)}>Send your first text</button>
+            )}
+
+            {showAddContact && (
+              <div>
+                <AddContact onHide={() => setShowAddContact(false)} />
+              </div>
+            )}
           </div>
-        )}
-        
-        {showAddContact && (
-          <div>
-            <AddContact  onHide={() => setShowAddContact(false)}/>
-          </div>
-        )}
-        {showProfile && (<Profile contactid={userId} admin={true} onHide={() => setShowProfile(false)}/>)}
+
+          {showProfile && (
+            <div className="sidebar">
+              <Profile contactid={userId} admin={true} onHide={() => setShowProfile(false)} />
+            </div>
+          )}
+        </div>
       </>
+
     );
 }
 

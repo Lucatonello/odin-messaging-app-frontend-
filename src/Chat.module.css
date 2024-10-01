@@ -1,6 +1,14 @@
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.chatContainer, ul {
+    flex-grow: 1; /* Allow chatContainer and ul elements to grow */
 }
 ul {
     list-style-type: none;
@@ -11,17 +19,20 @@ ul {
     gap: 5px;
     margin: 0px;
     padding: 0px;
+    flex-grow: 1; /* Allow ul to take up remaining space */
+    overflow-y: auto;
 }
 .rightSide {
-    text-align: right;
     background-color: #007bff;
     color: white;
     border-radius: 20px;
     padding: 7px 20px;
     margin: 10px;
-    max-width: 60%;
-    width: max-content;
-    
+    max-width: 600px;
+    /* width: max-content; */
+    word-wrap: break-word;
+    flex-grow: 1;
+    flex-shrink: 0
 }
 .leftSide {
     text-align: left;
@@ -32,6 +43,8 @@ ul {
     margin: 10px;
     max-width: 60%;
     width: max-content;
+    word-wrap: break-word; /* Prevents long words from overflowing */
+    flex-shrink: 0;
 }
 .rightSideli {
     align-self: flex-end;
@@ -41,19 +54,24 @@ ul {
     background-color: #f5f5f5;
     margin: 0;
     padding: 7px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
 }
 .chatName {
     margin: 0px 0px 0px 10px;
 }
 .bottombar {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: #f5f5f5;
-    min-width: 100%;
+    width: 100%;
     padding: 15px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 .bottombar > form {
     display: flex; 
@@ -81,4 +99,13 @@ ul {
     border: none;
     cursor: pointer;
     padding: 10px;
+}
+.chatContainer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 50px; /* Adjust to the height of the top bar */
+    padding-bottom: 80px; /* Adjust to the height of the bottom bar */
+    overflow-y: auto; /* Enable scrolling for chat area */
 }

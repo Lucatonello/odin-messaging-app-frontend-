@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import arrow from '../img/back-arrow.png';
-import '../Profile.css';
+import defaultPfp from '../img/user.png';
+import styles from '../Profile.module.css';
 
 function Profile({ contactid, admin, onHide }) {
     const [editUsername, setEditUsername] = useState(false);
@@ -68,77 +69,91 @@ function Profile({ contactid, admin, onHide }) {
     
 
     return (
-        <div className="profile-sidebar">
+        <div className={styles.profileSidebar}>
             {data.profilepic ? (
-                <img src={data.profilepic} alt="Profile Picture" className="pfp" />
+                <img src={data.profilepic} alt="Profile Picture" className={styles.pfp} />
             ) : (
                 <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
+                    src={defaultPfp}
                     alt="Default Profile Picture"
-                    className="pfp"
+                    className={styles.pfp}
                 />
             )}
             
-            <div className="profile-details">
+            <div className={styles.profileDetails}>
                 {editUsername ? (
                     <input
-                            type="text"
-                            value={newUsername}
-                            onChange={(e) => setNewUsername(e.target.value)}
-                            placeholder="Enter new username"
-                            />
-                        ) : (
-                            <h1>{data.username}</h1>
-                        )}
+                        type="text"
+                        value={newUsername}
+                        onChange={(e) => setNewUsername(e.target.value)}
+                        placeholder="Enter new username"
+                        className={styles.newInput}
+                    />
+                ) : (
+                    <h1 className={styles.username}>{data.username}</h1>
+                )}
 
-                        {admin && !editUsername && (
-                            <button onClick={() => {
+                {admin && !editUsername && (
+                    <button
+                        onClick={() => {
                             setEditUsername(true);
                             setNewUsername(data.username); // Set the initial value to the current username
-                            }}>
-                            Change username
-                            </button>
-                        )}
+                        }}
+                        className={styles.editButtons}
+                    >
+                        Change username
+                    </button>
+                )}
 
-                        {editUsername && (
-                            <div>
-                                <button style={{ marginRight: '5px'}} onClick={handleUserNameChange}>Save</button>
-                                <button onClick={() => setEditUsername(false)}>Cancel</button>
-                            </div>    
-                        )}
+                {editUsername && (
+                    <div>
+                        <button className={styles.editButtons} style={{ marginRight: '5px' }} onClick={handleUserNameChange}>
+                            Save
+                        </button>
+                        <button className={styles.editButtons} onClick={() => setEditUsername(false)}>Cancel</button>
+                    </div>
+                )}
             </div>
-            <div className="profile-details">
+
+            <div className={styles.profileDetails}>
                 {editBio ? (
                     <input
-                            type="text"
-                            value={newBio}
-                            onChange={(e) => setNewBio(e.target.value)}
-                            placeholder="Enter new bio"
-                            />
-                        ) : (
-                            <div className={data.bio ? 'bio' : ''}> 
-                                <p>{data.bio}</p>
-                            </div>
-                        )}
+                        type="text"
+                        value={newBio}
+                        onChange={(e) => setNewBio(e.target.value)}
+                        placeholder="Enter new bio"
+                        className={styles.newInput}
+                    />
+                ) : (
+                    <div className={data.bio ? styles.bio : ''}>
+                        <p>{data.bio}</p>
+                    </div>
+                )}
 
-                        {admin && !editBio && (
-                            <button onClick={() => {
+                {admin && !editBio && (
+                    <button
+                        onClick={() => {
                             setEditBio(true);
-                            setNewBio(data.bio); 
-                            }}>
-                            Change bio
-                            </button>
-                        )}
+                            setNewBio(data.bio);
+                        }}
+                        className={styles.editButtons}
+                    >
+                        Change bio
+                    </button>
+                )}
 
-                        {editBio && (
-                            <div>
-                                <button style={{ marginRight: '5px'}} onClick={handleBioChange}>Save</button>
-                                <button onClick={() => setEditBio(false)}>Cancel</button>
-                            </div>
-                        )}
+                {editBio && (
+                    <div>
+                        <button className={styles.editButtons} style={{ marginRight: '5px' }} onClick={handleBioChange}>
+                            Save
+                        </button>
+                        <button className={styles.editButtons} onClick={() => setEditBio(false)}>Cancel</button>
+                    </div>
+                )}
             </div>
-            <button onClick={onHide} className="hideButton">
-                <img src={arrow} alt="<-" style={{ height: '35px', width: '35px'}} />
+
+            <button onClick={onHide} className={styles.hideButton}>
+                <img src={arrow} alt="<-" style={{ height: '35px', width: '35px' }} />
             </button>
         </div>
     );

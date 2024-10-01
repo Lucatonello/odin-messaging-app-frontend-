@@ -84,16 +84,25 @@ function Index() {
             onClick={handleLogout} 
           />
         </div>
-  
-        <ul className="chatList">
+
+        {chats.length !== 0 ? (
+          <ul className="chatList">
           {filteredChats.map((chat) => (
             <li key={chat.id} className="chatItem">
               <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
+                <img src={defaultPfp} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
                 <h1 className="chatUsername">{chat.username}</h1>
               </div>
             </li>
           ))}
         </ul>
+        ): (
+          <div className="noChatsMessage">
+            <h1>No chats yet...</h1>
+            <button className="sendFirstTextButton" onClick={() => setShowAddContact(true)}>Send your first text</button>
+          </div>
+        )}
+        
         {showAddContact && (
           <div>
             <AddContact  onHide={() => setShowAddContact(false)}/>

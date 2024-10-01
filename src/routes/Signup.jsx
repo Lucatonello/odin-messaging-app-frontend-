@@ -6,6 +6,7 @@ import '../Signup.css';
 function Signup() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
+    const [bio, setBio] = useState("Hello World, this is my bio!");
     const [err, setErr] = useState('');
     const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ function Signup() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username, password, bio }),
             });
             if (!response.ok) {
                 throw new Error('response not okay', response); 
@@ -39,7 +40,7 @@ function Signup() {
         <div className="container">
         <form onSubmit={handleSubmit} className="form">
             <legend className="legend">Signup</legend>
-            <label htmlFor="username" className="label">Username</label>
+            <label htmlFor="username" className="label">* Username</label>
             <input
                 type="text" 
                 name="username"
@@ -49,12 +50,22 @@ function Signup() {
                 onFocus={(e) => e.target.style.borderColor = '#f5a462'}
                 onBlur={(e) => e.target.style.borderColor = '#ddd'}
             />
-            <label htmlFor="password" className="label">Password</label>
+            <label htmlFor="password" className="label">* Password</label>
             <input
                 type="password" 
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="input"
+                onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                onBlur={(e) => e.target.style.borderColor = '#ddd'}
+            />
+            <label htmlFor="bio" className="label">Bio</label>
+            <input
+                type="text" 
+                name="bio"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
                 className="input"
                 onFocus={(e) => e.target.style.borderColor = '#f5a462'}
                 onBlur={(e) => e.target.style.borderColor = '#ddd'}

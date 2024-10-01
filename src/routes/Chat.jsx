@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Profile from './Profile';
+import defaultPfp from '../img/user.png';
 import { useNavigate } from 'react-router-dom'; 
-import '../Chat.css';
+import styles from '../Chat.module.css'
 
 function Chat() {
     const [chat, setChat] = useState([]);
@@ -74,30 +75,29 @@ function Chat() {
     };
 
     return (
-        <div>
-            <div className='topbar'>
+        <div className={styles.chatContainer}>
+            <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" 
+                    src={defaultPfp}
                     alt="pfp" style={icon} 
                     onClick={() => setShowProfile(true)} 
                 />
-                <h1 className='chatName'>
+                <h1 className={styles.chatName}>
                     {contactName ? contactName : "Loading..."} {/* Display contact name */}
                 </h1>
-                
             </div>
             <ul>
                 {chat.map((c) => (
-                    <li key={c.id} className={c.senderid === userId ? 'rightSideli' : 'leftSideli'}>
-                        <div className={c.senderid === userId ? 'rightSide' : 'leftSide'}>
+                    <li key={c.id} className={c.senderid === userId ? styles.rightSideli : styles.leftSideli}>
+                        <div className={c.senderid === userId ? styles.rightSide : styles.leftSide}>
                             <p>{c.text}</p>
                             {/* <p>{c.sentat}</p> */}
                         </div>
                     </li>
                 ))}
             </ul>
-            <div className='bottombar'>
+            <div className={styles.bottombar}>
                 <form onSubmit={handleNewMessage}>
                     <input
                         type="text"
@@ -107,13 +107,13 @@ function Chat() {
                         onChange={(e) => { setNewMessage(e.target.value) }}
                     />
                     {newMessage && (
-                        <button className='send' type="submit" style={{ background: 'none', border: 'none', cursor: 'pointer', margin: '0px', padding: '0px', height: '30px' }}>
-                            <img className='send' src={bottomArrow} alt="Send" style={{ width: '30px', height: '30px' }} />
+                        <button className={styles.send} type="submit" style={{ background: 'none', border: 'none', cursor: 'pointer', margin: '0px', padding: '0px', height: '30px' }}>
+                            <img className={styles.send} src={bottomArrow} alt="Send" style={{ width: '30px', height: '30px' }} />
                         </button>
                     )}
                     {showProfile && (
-                        <div className="hideProfile-container">
-                        <Profile contactid={contactid} admin={false} onHide={() => setShowProfile(false)}/>
+                        <div className={styles.hideProfileContainer}>
+                            <Profile contactid={contactid} admin={false} onHide={() => setShowProfile(false)}/>
                         </div>
                     )}
                 </form>

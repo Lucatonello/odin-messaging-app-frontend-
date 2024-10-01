@@ -93,7 +93,7 @@ function Index() {
                 {filteredChats.map((chat) => (
                   <li key={chat.id} className="chatItem">
                     <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
-                      <img src={defaultPfp} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
+                      <img src={chat.profilepic} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
                       <h1 className="chatUsername">{chat.username}</h1>
                     </div>
                   </li>

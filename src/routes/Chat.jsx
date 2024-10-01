@@ -4,14 +4,12 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Profile from './Profile';
-import defaultPfp from '../img/user.png';
 import { useNavigate } from 'react-router-dom'; 
 import styles from '../Chat.module.css'
 
 function Chat() {
     const [chat, setChat] = useState([]);
-    console.log('chat.senderid: ', chat.senderid)
-
+    const [pfp, setPfp] = useState("");    
     const [userId, setUserId] = useState(null);
     const [contactName, setContactName] = useState("");
     const [newMessage, setNewMessage] = useState("");
@@ -38,6 +36,7 @@ function Chat() {
             .then(res => res.json())
             .then(data => {
                 setChat(data);
+                setPfp(data[0].receiver_profilepic)
                 console.log('data', data);
                 // Find the contact's name based on the current user
                 if (data.length > 0) {
@@ -79,7 +78,7 @@ function Chat() {
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 <img 
-                    src={defaultPfp}
+                    src={pfp}
                     alt="pfp" style={icon} 
                     onClick={() => setShowProfile(true)} 
                 />

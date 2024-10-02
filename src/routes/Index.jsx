@@ -83,6 +83,7 @@ function Index() {
                 <img 
                   src={profilePic} 
                   alt="Profile" 
+                  style={{ borderRadius: '50%', cursor: 'pointer' }}
                   className="addContactIcon" 
                   onClick={() => setShowProfile(true)} 
                 />
@@ -100,7 +101,7 @@ function Index() {
                 {filteredChats.map((chat) => (
                   <li key={chat.id} className="chatItem">
                     <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
-                      <img src={chat.profilepic} style={{ height: '35px', width: '35px', marginRight: '10px'}} alt="" />
+                      <img src={chat.profilepic} style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} alt="" />
                       <h1 className="chatUsername">{chat.username}</h1>
                     </div>
                   </li>

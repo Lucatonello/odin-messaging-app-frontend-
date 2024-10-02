@@ -3,12 +3,14 @@ import arrow from '../img/back-arrow.png';
 import styles from '../Profile.module.css';
 
 
+// eslint-disable-next-line react/prop-types
 function Profile({ contactid, admin, onHide }) {
     const [editUsername, setEditUsername] = useState(false);
     const [editBio, setEditBio] = useState(false);
 
     const [newUsername, setNewUsername] = useState("");
     const [newBio, setNewBio] = useState("");
+    const [newPfp, setNewPfp] = useState(null);
     const [data, setData] = useState([]);
     const token = localStorage.getItem('token');
 
@@ -47,8 +49,8 @@ function Profile({ contactid, admin, onHide }) {
             })
     
         }
-      };
-      const handleBioChange = async () => {
+    };
+    const handleBioChange = async () => {
         if (admin) {
             setEditBio(false);
 
@@ -58,20 +60,73 @@ function Profile({ contactid, admin, onHide }) {
             }));
     
             await fetch(`http://localhost:3000/editData/${contactid}`, {
-                 method: 'PUT',
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Content-type': 'application/json',
                 },
                 body: JSON.stringify({ type: 'bio', newData: newBio })
             })
         }
-      };
+    };
+      
+    const handlePfpChange = async (e) => {
+        const file = e.target.files[0];
+        setNewPfp(file);
+        console.log('newPfp', file);
+    }
+
+    const handleNewPfpSubmit = async (e) => {
+        e.preventDefault();
     
+        if (!newPfp) {
+            alert("Please select a file first.");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append('pfp', newPfp);
+        formData.append('type', 'pfp');
+    
+        await fetch(`http://localhost:3000/editData/${contactid}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('File uploaded successfully', data);
+            setData(prevData => ({
+                ...prevData,
+                profilepic: URL.createObjectURL(newPfp),
+            }));
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
+    };
 
     return (
         <div className={styles.profileSidebar}>
-            <img src={data.profilepic} alt="Profile Picture" className={styles.pfp} />
+            <div className={styles.imgContainer}>
+                <img src={data.profilepic} alt="Profile Picture" className={styles.pfp} />
+                {admin && (
+                    <form onSubmit={handleNewPfpSubmit}>
+                        <input 
+                            type="file" 
+                            name="newPfp"
+                            className="newPfpSelector"
+                            onChange={handlePfpChange}
+                        />
+                        {newPfp && (
+                            <button type="submit">Change</button>
+                        )}
+                    </form>
+                   
+                )}
+            </div>
+            
             <div className={styles.profileDetails}>
                 {editUsername ? (
                     <input
@@ -89,7 +144,7 @@ function Profile({ contactid, admin, onHide }) {
                     <button
                         onClick={() => {
                             setEditUsername(true);
-                            setNewUsername(data.username); // Set the initial value to the current username
+                            setNewUsername(data.username);
                         }}
                         className={styles.editButtons}
                     >

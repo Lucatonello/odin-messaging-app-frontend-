@@ -70,6 +70,8 @@ function Chat() {
     const icon = {
         height: '35px',
         width: '35px',
+        borderRadius: '50%',
+        cursor: 'pointer'
     };
 
     return (

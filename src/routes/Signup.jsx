@@ -76,12 +76,18 @@ function Signup() {
                 onFocus={(e) => e.target.style.borderColor = '#f5a462'}
                 onBlur={(e) => e.target.style.borderColor = '#ddd'}
             />
-            <label htmlFor="fileUpload">Profile picture</label>
-            <input 
-                type="file" 
-                name="pfp"
-                onChange={handleFileChange}
-            />
+            <div className="file-upload-container">
+                <label htmlFor="fileUpload" className="file-upload-btn">
+                    Upload Profile Picture
+                </label>
+                <input
+                    type="file"
+                    name="pfp"
+                    id="fileUpload"
+                    onChange={handleFileChange}
+                />
+            </div>
+
             <button type="submit" className="button">Sign up</button>
         </form>
         <p className="paragraph">Already have an account?</p>

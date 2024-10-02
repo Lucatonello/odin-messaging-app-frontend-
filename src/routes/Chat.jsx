@@ -36,15 +36,14 @@ function Chat() {
             .then(res => res.json())
             .then(data => {
                 setChat(data);
-                setPfp(data[0].receiver_profilepic)
+                setPfp(userId == data[0].senderid ? data[0].receiver_profilepic : data[0].sender_profilepic)
                 console.log('data', data);
-                // Find the contact's name based on the current user
                 if (data.length > 0) {
                     const contact = data[0].senderid === decoded.id
-                        ? data[0].receiver_username // Current user is sender, so get receiver's name
-                        : data[0].sender_username;  // Current user is receiver, so get sender's name
+                        ? data[0].receiver_username
+                        : data[0].sender_username; 
                     
-                    setContactName(contact); // Set the contact's name
+                    setContactName(contact); 
                 }
             })
             .catch(error => console.error('Fetch error:', error));
@@ -83,7 +82,7 @@ function Chat() {
                     onClick={() => setShowProfile(true)} 
                 />
                 <h1 className={styles.chatName}>
-                    {contactName ? contactName : "Loading..."} {/* Display contact name */}
+                    {contactName ? contactName : "Loading..."}
                 </h1>
             </div>
             <ul>

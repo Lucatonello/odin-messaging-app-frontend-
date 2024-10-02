@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import arrow from '../img/back-arrow.png';
-import defaultPfp from '../uploads/user.png';
 import styles from '../Profile.module.css';
 
 
@@ -72,15 +71,7 @@ function Profile({ contactid, admin, onHide }) {
 
     return (
         <div className={styles.profileSidebar}>
-            {data.profilepic ? (
-                <img src={data.profilepic} alt="Profile Picture" className={styles.pfp} />
-            ) : (
-                <img
-                    src={defaultPfp}
-                    alt="Default Profile Picture"
-                    className={styles.pfp}
-                />
-            )}
+            <img src={data.profilepic} alt="Profile Picture" className={styles.pfp} />
             <div className={styles.profileDetails}>
                 {editUsername ? (
                     <input

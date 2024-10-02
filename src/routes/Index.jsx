@@ -5,7 +5,7 @@ import '../Index.css';
 import Profile from './Profile';
 import AddContact from './AddContact';
 import addContactIcon from '../img/add-contact.png'
-import defaultPfp from '../img/user.png';
+// import defaultPfp from '../img/user.png';
 import logout from '../img/logoute.png'
 
 function Index() {
@@ -14,6 +14,7 @@ function Index() {
     const [showAddContact, setShowAddContact] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [profilePic, setProfilePic] = useState("");
 
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
@@ -21,30 +22,36 @@ function Index() {
     useEffect(() => {
       if (token) {
         const decoded = jwtDecode(token);
+          console.log('decoded.id', decoded.id);
         setUserId(decoded.id);
       }
     }, [token]);
 
     useEffect(() => {
-      if (token) {
-          fetch('http://localhost:3000/', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-type': 'application/json',
-            },
+      if (userId && token) {
+        fetch('http://localhost:3000/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-type': 'application/json',
+          },
         })
           .then(res => res.json())
           .then(data => {
-            setChats(data)
-            console.log(data);
+            setChats(data.contacts);
+
+            const currentUser = data.currentUser;
+            console.log('current user', currentUser);
+  
+            if (currentUser) {
+              setProfilePic(currentUser.profilepic); // Set profile picture
+              console.log('profilePic', currentUser.profilepic);
+            }
           })
           .catch(error => console.error('Fetch error:', error));
-        } else {
-          navigate('/login')
-        }
-        
-    }, [token, navigate]);
+      }
+    }, [token, userId]);
+
     const filteredChats = chats.filter(chat =>
       chat.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -74,7 +81,7 @@ function Index() {
                   onClick={() => setShowAddContact(true)} 
                 />
                 <img 
-                  src={defaultPfp} 
+                  src={profilePic} 
                   alt="Profile" 
                   className="addContactIcon" 
                   onClick={() => setShowProfile(true)} 

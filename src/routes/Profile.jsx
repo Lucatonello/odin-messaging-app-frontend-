@@ -9,7 +9,7 @@ function Profile({ contactid, admin, onHide }) {
     const [editBio, setEditBio] = useState(false);
 
     const [newUsername, setNewUsername] = useState("");
-    const [newBio, setNewBio] = useState("");
+    const [newBio, setNewBio] = useState("Hello World, this is my bio!");
     const [newPfp, setNewPfp] = useState(null);
     const [data, setData] = useState([]);
     const token = localStorage.getItem('token');
@@ -40,7 +40,7 @@ function Profile({ contactid, admin, onHide }) {
             }));
     
             await fetch(`http://localhost:3000/editData/${contactid}`, {
-                 method: 'PUT',
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
@@ -63,6 +63,7 @@ function Profile({ contactid, admin, onHide }) {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
                 },
                 body: JSON.stringify({ type: 'bio', newData: newBio })
             })

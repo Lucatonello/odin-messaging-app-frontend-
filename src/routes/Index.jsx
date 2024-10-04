@@ -4,8 +4,9 @@ import { jwtDecode } from 'jwt-decode';
 import '../Index.css';
 import Profile from './Profile';
 import AddContact from './AddContact';
+import NewGroupChat from './NewGroupchat';
 import addContactIcon from '../img/add-contact.png'
-// import defaultPfp from '../img/user.png';
+import group from '../img/group.png';
 import logout from '../img/logoute.png'
 
 function Index() {
@@ -15,6 +16,7 @@ function Index() {
     const [showProfile, setShowProfile] = useState(false);
     const [userId, setUserId] = useState(null);
     const [profilePic, setProfilePic] = useState("");
+    const [showGC, setShowNewGC] = useState(false)
 
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
@@ -88,6 +90,12 @@ function Index() {
                   onClick={() => setShowProfile(true)} 
                 />
                 <img 
+                  src={group} 
+                  alt="group"
+                  className="addContactIcon"
+                  onClick={() => setShowNewGC(true)}
+                />
+                <img 
                   src={logout} 
                   alt="Logout" 
                   className="addContactIcon" 
@@ -124,6 +132,11 @@ function Index() {
           {showProfile && (
             <div className="sidebar">
               <Profile contactid={userId} admin={true} onHide={() => setShowProfile(false)} />
+            </div>
+          )}
+          {showGC && (
+            <div>
+              <NewGroupChat onHide={() => setShowNewGC(false)} />
             </div>
           )}
         </div>

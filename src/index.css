@@ -55,7 +55,7 @@
 /* Styling for the search bar */
 .searchBar {
   flex: 1;
-  width: 300px; /* Ensure the search bar takes up the entire container width */
+  width: 50px; /* Ensure the search bar takes up the entire container width */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;

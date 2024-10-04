@@ -44,7 +44,7 @@ function NewGroupChat({ onHide }) {
                 'Authorization': `Bearer ${token}`,
                 'Content-type': 'application/json', 
             },
-            body: newGroupChat
+            body: JSON.stringify(newGroupChat)
         })
     };
 

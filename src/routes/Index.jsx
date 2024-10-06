@@ -151,7 +151,7 @@ function Index() {
             {groupChats.length !== 0 && (
               <ul className="chatList">
                 {groupChats.map((groupchat) => (
-                    <li className="chatItem" key={groupchat.id}>
+                    <li className="chatItem" key={groupchat.id} onClick={() => navigate(`/groupChat/${groupchat.id}`)}>
                       {groupchat.profilepics.map((pic, index) => (
                         <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
                       ))}

@@ -63,6 +63,7 @@ function Groupchat() {
         borderRadius: '50%',
         cursor: 'pointer'
     };
+
     return (
         <div>
             <div className={styles.topbar}>
@@ -83,17 +84,16 @@ function Groupchat() {
                     alt="pfp" style={icon} 
                     onClick={() => setShowInfo(true)} 
                 /> */}
-                <h1 className={styles.chatName}>
-
-                </h1>
             </div>
-            <ul>
-                {messages.map((message) => (
-                    <li key={message.id}>
-                        <p>{message.text}</p>
-                    </li>
-                ))}
-            </ul>
+            <div className={styles.messagesContainer}>
+                <ul>    
+                    {messages.map((message) => (
+                        <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>
+                            <p className={message.senderid == userId ? styles.rightSide : styles.leftSide}>{message.text}</p>
+                        </li>
+                    ))}
+                </ul>    
+            </div>
         </div>
     )
 }

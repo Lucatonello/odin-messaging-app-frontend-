@@ -11,6 +11,7 @@ import logout from '../img/logoute.png'
 
 function Index() {
     const [chats, setChats] = useState([]);
+    const [groupChats, setGroupChats] = useState([])
     const [searchTerm, setSearchTerm] = useState("");
     const [showAddContact, setShowAddContact] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
@@ -25,7 +26,7 @@ function Index() {
       if (token) {
         const decoded = jwtDecode(token);
           console.log('decoded.id', decoded.id);
-        setUserId(decoded.id);
+          setUserId(decoded.id);
       }
     }, [token]);
 
@@ -46,12 +47,30 @@ function Index() {
             console.log('current user', currentUser);
   
             if (currentUser) {
-              setProfilePic(currentUser.profilepic); // Set profile picture
+              setProfilePic(currentUser.profilepic);
               console.log('profilePic', currentUser.profilepic);
             }
           })
           .catch(error => console.error('Fetch error:', error));
       }
+    }, [token, userId]);
+    
+    useEffect(() => {
+      if (userId && token) {
+        fetch(`http://localhost:3000/getUserGroupChats/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-type': 'application/json',
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            setGroupChats(data)
+            console.log('groupchats: ', data)
+          })
+          .catch(error => console.error('Fetch error:', error))
+      } 
     }, [token, userId]);
 
     const filteredChats = chats.filter(chat =>
@@ -63,6 +82,7 @@ function Index() {
       navigate('/login');
     };
 
+    console.log('groupchat state', groupChats);
     return (
       <>
         <div className="layoutContainer">
@@ -87,13 +107,19 @@ function Index() {
                   alt="Profile" 
                   style={{ borderRadius: '50%', cursor: 'pointer' }}
                   className="addContactIcon" 
-                  onClick={() => setShowProfile(true)} 
+                  onClick={() => {
+                    setShowProfile(true)
+                    setShowNewGC(false)
+                  }} 
                 />
                 <img 
                   src={group} 
                   alt="group"
                   className="addContactIcon"
-                  onClick={() => setShowNewGC(true)}
+                  onClick={() => {
+                    setShowNewGC(true)
+                    setShowProfile(false)
+                  }}
                 />
                 <img 
                   src={logout} 
@@ -121,7 +147,20 @@ function Index() {
                 <button className="sendFirstTextButton" onClick={() => setShowAddContact(true)}>Send your first text</button>
               </div>
             )}
-
+             <hr />
+             <h1>Group Chats: </h1>
+            {groupChats.length !== 0 ? (
+              <ul className="chatList">
+                {groupChats.map((groupchat) => (
+                    <li className="chatItem" key={groupchat.id}>
+                      <h1>{groupchat.name}</h1>
+                      <p>{groupchat.description}</p>
+                    </li>
+                ))}
+              </ul>
+             ) : (
+              <h1>Loading groupChats...</h1>
+             )}
             {showAddContact && (
               <div>
                 <AddContact onHide={() => setShowAddContact(false)} />

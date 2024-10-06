@@ -75,8 +75,8 @@ function NewGroupChat({ onHide }) {
                     onChange={(e) => setDescription(e.target.value)} 
                 />
 
-                <button type="submit">Create</button>
-                <button onClick={onHide}>Cancel</button>
+                <button type="submit" className={styles.button}>Create</button>
+                <button onClick={onHide} className={styles.cancelButton}>Cancel</button>
             </form>
         </div>
     )

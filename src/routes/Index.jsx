@@ -82,7 +82,6 @@ function Index() {
       navigate('/login');
     };
 
-    console.log('groupchat state', groupChats);
     return (
       <>
         <div className="layoutContainer">
@@ -149,17 +148,17 @@ function Index() {
             )}
              <hr />
              <h1>Group Chats: </h1>
-            {groupChats.length !== 0 ? (
+            {groupChats.length !== 0 && (
               <ul className="chatList">
                 {groupChats.map((groupchat) => (
                     <li className="chatItem" key={groupchat.id}>
-                      <h1>{groupchat.name}</h1>
-                      <p>{groupchat.description}</p>
+                      {groupchat.profilepics.map((pic, index) => (
+                        <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
+                      ))}
+                      <h1 className="chatUsername">{groupchat.name}</h1>
                     </li>
                 ))}
               </ul>
-             ) : (
-              <h1>Loading groupChats...</h1>
              )}
             {showAddContact && (
               <div>

@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import arrow from '../img/back-arrow.png';
+import bottomArrow from '../img/up-arrow.png';
 import { useNavigate } from 'react-router-dom';  
 import styles from '../Groupchat.module.css';   
 
 function Groupchat() {
     const [messages, setMessages] = useState([])
     const [showInfo, setShowInfo] = useState(false);
+    const [newMessage, setNewMessage] = useState("");
     const [userId, setUserId] = useState(null);
     const [groupMetadata, setGroupMetadata] = useState([])
     const { id } = useParams();
@@ -55,7 +57,22 @@ function Groupchat() {
             })
             .catch(error => console.error('Fetch error:', error))
         } 
-      }, [token, userId]);
+    }, [token, userId]);
+
+    const handleNewMessage = async () => {
+        try {
+            await fetch(`http://localhost:3000/newGroupChatMessage/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ newMessage: newMessage, userId: userId })
+            })
+        } catch(err) {
+            console.error(err);
+        }
+    };
 
     const icon = {
         height: '35px',
@@ -88,11 +105,30 @@ function Groupchat() {
             <div className={styles.messagesContainer}>
                 <ul>    
                     {messages.map((message) => (
+                        
                         <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>
+                            <p className={styles.sender}>{message.senderid !== userId ? message.username: ''}</p>
                             <p className={message.senderid == userId ? styles.rightSide : styles.leftSide}>{message.text}</p>
                         </li>
                     ))}
                 </ul>    
+            </div>
+
+            <div className={styles.bottombar}>
+                <form onSubmit={handleNewMessage}>
+                    <input
+                        type="text"
+                        name="newMessage"
+                        placeholder="Message"
+                        value={newMessage}
+                        onChange={(e) => { setNewMessage(e.target.value) }}
+                    />
+                    {newMessage && (
+                        <button className={styles.send} type="submit" style={{ background: 'none', border: 'none', cursor: 'pointer', margin: '0px', padding: '0px', height: '30px' }}>
+                            <img className={styles.send} src={bottomArrow} alt="Send" style={{ width: '30px', height: '30px' }} />
+                        </button>
+                    )}
+                </form>
             </div>
         </div>
     )

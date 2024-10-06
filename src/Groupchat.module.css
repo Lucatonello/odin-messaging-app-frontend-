@@ -25,10 +25,12 @@
     padding: 7px 20px;
     margin: 10px;
     max-width: 600px;
-    /* width: max-content; */
     word-wrap: break-word;
     flex-grow: 1;
     flex-shrink: 0
+}
+.rightSide > p {
+    padding: 7px 20px;
 }
 .leftSide {
     text-align: left;
@@ -36,10 +38,10 @@
     color: black;
     border-radius: 20px;
     padding: 7px 20px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     max-width: 60%;
     width: max-content;
-    word-wrap: break-word; /* Prevents long words from overflowing */
+    word-wrap: break-word;
     flex-shrink: 0;
 }
 ul {
@@ -56,4 +58,50 @@ ul {
 }
 .rightSideli {
     align-self: flex-end;
+}
+.rightSideli .sender {
+    text-align: right; /* Align the sender name on the right for right-side messages */
+    color: #f0f0f0; /* Light color for contrast with the blue background */
+}
+.leftSideli .sender {
+    text-align: left; /* Align the sender name on the left for left-side messages */
+    color: #9d9da1; /* Darker color for contrast with the light background */
+}
+.bottombar {
+    position: fixed;
+    bottom: 0;
+    background-color: #f5f5f5;
+    width: 100%;
+    padding: 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.send {
+    margin-left: 10px;
+    height: 30px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+.bottombar > form {
+    display: flex; 
+    flex-direction: row;
+    align-items: center; 
+}
+.bottombar > form > input {
+    width: 500px;
+    border: 1px solid #c7c7c7;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0;
+}
+.sender {
+    margin: 10px 0px 0px 0px;
+    padding: 0px 0px 2px 20px;
+    font-size: 0.85rem; /* Smaller font size for distinction */
+    font-weight: bold; /* Make the username bold */
+    color: #666; /* A subtle gray color */
+    text-align: left; /* Align the username to the left */
 }

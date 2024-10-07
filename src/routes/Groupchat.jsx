@@ -35,7 +35,7 @@ function Groupchat() {
         })
           .then(res => res.json())
           .then(data => {
-            console.log('fetch data: ', data);
+            console.log('group messages: ', data);
             setMessages(data)
           })
     }, [id, token]);
@@ -87,13 +87,18 @@ function Groupchat() {
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 {groupMetadata.length !== 0 && (
                     <ul className={styles.pfpContainer}>
-                        {groupMetadata[0].profilepics.map((pic, index) => (
-                            <li key={index}>
-                                <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
-                            </li>
+                        {groupMetadata.map((i, index) => ( 
+                            <div key={index}>
+                                {i.id == id && (
+                                    i.profilepics.map((pic, index) => (
+                                        <li key={index}>
+                                            <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
+                                        </li>
+                                    )) 
+                                )}                  
+                                <h1 style={{ margin: '0px 0px 0px 10px' }}>{(i.name && i.id == id) && i.name }</h1>
+                            </div>
                         ))}
-                        <h1 style={{ margin: '0px 0px 0px 10px' }}>{groupMetadata[0] ? groupMetadata[0].name : 'Loading...' }</h1>
-
                     </ul>
                 )}
                 {/* <img 
@@ -103,9 +108,8 @@ function Groupchat() {
                 /> */}
             </div>
             <div className={styles.messagesContainer}>
-                <ul>    
+                <ul className={styles.messagesUl}>    
                     {messages.map((message) => (
-                        
                         <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>
                             <p className={styles.sender}>{message.senderid !== userId ? message.username: ''}</p>
                             <p className={message.senderid == userId ? styles.rightSide : styles.leftSide}>{message.text}</p>

@@ -23,7 +23,7 @@
     color: white;
     border-radius: 20px;
     padding: 7px 20px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     max-width: 600px;
     word-wrap: break-word;
     flex-grow: 1;
@@ -44,7 +44,7 @@
     word-wrap: break-word;
     flex-shrink: 0;
 }
-ul {
+.messagesUl {
     list-style-type: none;
     display: flex;
     flex: 1;
@@ -53,7 +53,7 @@ ul {
     gap: 5px;
     margin: 0px;
     padding: 0px;
-    flex-grow: 1; /* Allow ul to take up remaining space */
+    flex-grow: 1;
     overflow-y: auto;
 }
 .rightSideli {
@@ -100,8 +100,8 @@ ul {
 .sender {
     margin: 10px 0px 0px 0px;
     padding: 0px 0px 2px 20px;
-    font-size: 0.85rem; /* Smaller font size for distinction */
-    font-weight: bold; /* Make the username bold */
-    color: #666; /* A subtle gray color */
-    text-align: left; /* Align the username to the left */
+    font-size: 0.85rem; 
+    font-weight: bold; 
+    color: #666; 
+    text-align: left; 
 }

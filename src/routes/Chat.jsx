@@ -90,6 +90,7 @@ function Chat() {
             <ul>
                 {chat.map((c) => (
                     <li key={c.id} className={c.senderid === userId ? styles.rightSideli : styles.leftSideli}>
+                        <p className={styles.sender}>{c.senderid !== userId ? c.sender_username: ''}</p>
                         <div className={c.senderid === userId ? styles.rightSide : styles.leftSide}>
                             <p>{c.text}</p>
                             {/* <p>{c.sentat}</p> */}

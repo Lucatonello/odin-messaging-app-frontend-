@@ -22,14 +22,17 @@ ul {
     flex-grow: 1; /* Allow ul to take up remaining space */
     overflow-y: auto;
 }
+p {
+    margin: 0;
+    padding: 0;
+}
 .rightSide {
     background-color: #007bff;
     color: white;
     border-radius: 20px;
     padding: 7px 20px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     max-width: 600px;
-    /* width: max-content; */
     word-wrap: break-word;
     flex-grow: 1;
     flex-shrink: 0
@@ -40,7 +43,7 @@ ul {
     color: black;
     border-radius: 20px;
     padding: 7px 20px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     max-width: 60%;
     width: max-content;
     word-wrap: break-word; /* Prevents long words from overflowing */
@@ -118,6 +121,22 @@ ul {
     padding-top: 50px; /* Adjust to the height of the top bar */
     padding-bottom: 80px; /* Adjust to the height of the bottom bar */
     overflow-y: auto; /* Enable scrolling for chat area */
+}
+.sender {
+    margin: 10px 0px 0px 0px;
+    padding: 0px 0px 2px 20px;
+    font-size: 0.85rem; 
+    font-weight: bold; 
+    color: #666; 
+    text-align: left; 
+}
+.rightSideli .sender {
+    text-align: right; /* Align the sender name on the right for right-side messages */
+    color: #f0f0f0; /* Light color for contrast with the blue background */
+}
+.leftSideli .sender {
+    text-align: left; /* Align the sender name on the left for left-side messages */
+    color: #9d9da1; /* Darker color for contrast with the light background */
 }
 @media (max-width: 826px) {
     .chatContainer2 {

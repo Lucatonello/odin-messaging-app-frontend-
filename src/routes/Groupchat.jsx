@@ -5,10 +5,11 @@ import arrow from '../img/back-arrow.png';
 import bottomArrow from '../img/up-arrow.png';
 import { useNavigate } from 'react-router-dom';  
 import styles from '../Groupchat.module.css';   
+import GroupchatDetails from './GroupchatDetails';
 
 function Groupchat() {
     const [messages, setMessages] = useState([])
-    const [showInfo, setShowInfo] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
     const [newMessage, setNewMessage] = useState("");
     const [userId, setUserId] = useState(null);
     const [groupMetadata, setGroupMetadata] = useState([])
@@ -88,24 +89,21 @@ function Groupchat() {
                 {groupMetadata.length !== 0 && (
                     <ul className={styles.pfpContainer}>
                         {groupMetadata.map((i, index) => ( 
-                            <div key={index}>
+                            <li key={index}>
                                 {i.id == id && (
                                     i.profilepics.map((pic, index) => (
-                                        <li key={index}>
-                                            <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
-                                        </li>
+                                        <img key={index} src={pic} alt="pfp" 
+                                        style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} 
+                                        onClick={() => setShowDetails(true)}
+                                        />
                                     )) 
-                                )}                  
-                                <h1 style={{ margin: '0px 0px 0px 10px' }}>{(i.name && i.id == id) && i.name }</h1>
-                            </div>
+                                )}  
+                                <h1 style={{ margin: '0' }}>{(i.name && i.id == id) && i.name }</h1>
+                            </li>
                         ))}
                     </ul>
                 )}
-                {/* <img 
-                    src={groupMetadata}
-                    alt="pfp" style={icon} 
-                    onClick={() => setShowInfo(true)} 
-                /> */}
+
             </div>
             <div className={styles.messagesContainer}>
                 <ul className={styles.messagesUl}>    
@@ -134,6 +132,7 @@ function Groupchat() {
                     )}
                 </form>
             </div>
+            {showDetails && <GroupchatDetails onHide={() => setShowDetails(false)} groupId={id} />}
         </div>
     )
 }

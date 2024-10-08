@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import styles from '../GroupchatDetails.module.css';
 import arrow from '../img/back-arrow.png'
+import Profile from './Profile';
 
 function GroupchatDetails({ onHide, groupId }) {
     const [groupMetadata, setGroupMetadata] = useState(null)
+    const [showProfile, setShowProfile] = useState(false);
+    const [selectedContact, setSelectedContact] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const token = localStorage.getItem('token');
@@ -130,7 +133,11 @@ function GroupchatDetails({ onHide, groupId }) {
                                     src={groupMetadata[0].profilepics[index]}
                                     alt="pfp"
                                     className={styles.memberPic}
-                                    style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%' }} 
+                                    style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }}
+                                    onClick={() => {
+                                        setSelectedContact(groupMetadata[0].ids[index])
+                                        setShowProfile(true)
+                                    }} 
                                 />
                                 {member}
                             </li>
@@ -144,6 +151,8 @@ function GroupchatDetails({ onHide, groupId }) {
             <button onClick={onHide} className={styles.hideButton}>
                 <img src={arrow} alt="<-" style={{ height: '35px', width: '35px' }} />
             </button>
+
+            {showProfile && <Profile contactid={selectedContact} admin={false} onHide={() => setShowProfile(false)} />}
         </div>
 
     )

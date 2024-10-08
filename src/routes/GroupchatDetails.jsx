@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import styles from '../Chat.module.css';
+import styles from '../GroupchatDetails.module.css';
 import arrow from '../img/back-arrow.png'
+
 function GroupchatDetails({ onHide, groupId }) {
     const [groupMetadata, setGroupMetadata] = useState(null)
     const [loading, setLoading] = useState(true);
@@ -92,7 +93,7 @@ function GroupchatDetails({ onHide, groupId }) {
                 )} */}
             </div>
 
-            <div className={styles.profileDetails}>
+            <div className={styles.description}>
             <div className={groupMetadata?.description ? styles.bio : ''}>
                 <p>{groupMetadata[0]?.description || 'No description'}</p>
             </div>
@@ -124,7 +125,15 @@ function GroupchatDetails({ onHide, groupId }) {
                 <ul className={styles.memberList}>
                     {groupMetadata[0].members.length > 0 ? (
                         groupMetadata[0].members.map((member, index) => (
-                            <li key={index}>{member}</li>
+                            <li key={index} className={styles.memberItem}>
+                                <img
+                                    src={groupMetadata[0].profilepics[index]}
+                                    alt="pfp"
+                                    className={styles.memberPic}
+                                    style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%' }} 
+                                />
+                                {member}
+                            </li>
                         ))
                     ) : (
                         <li>No members available</li>

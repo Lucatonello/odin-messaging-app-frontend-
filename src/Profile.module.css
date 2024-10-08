@@ -10,6 +10,7 @@
     flex-direction: column;
     padding: 30px;
     overflow-y: auto; /* Enables scrolling if the content exceeds the viewport height */
+    z-index: 1;
 }
 .imgContainer {
     display: flex;

@@ -1,0 +1,140 @@
+.profileSidebar {
+    position: fixed; /* Fixed position */
+    right: 0; /* Aligns the sidebar to the right of the screen */
+    top: 0;
+    width: 300px; /* Set the width of the sidebar */
+    height: 100%; /* Full height */
+    background-color: #f8f9fa; /* Background color for the sidebar */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    overflow-y: auto; /* Enables scrolling if the content exceeds the viewport height */
+    z-index: 1;
+}
+
+.imgContainer {
+    display: flex;
+    align-items: center; /* Centers the profile pictures horizontally */
+    flex-wrap: wrap; /* Wraps profile pictures to new rows */
+    margin-bottom: 20px;
+}
+
+.pfp {
+    border-radius: 50%; /* Makes the profile picture circular */
+    height: 35px; /* Adjusted to match the size in inline styles */
+    width: 35px;
+    object-fit: cover;
+    margin-right: 10px; /* Space between pictures */
+}
+
+.profileDetails {
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.username {
+    font-size: 1.5rem; /* Makes the group name prominent */
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
+.bio {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+    white-space: normal;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.memberList {
+    list-style: none; /* Removes bullet points */
+    padding: 0;
+    margin: 10px 0;
+}
+
+.memberList li {
+    padding: 5px 0;
+    text-align: center;
+}
+
+.hideButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hideButton > img {
+    height: 35px;
+    width: 35px;
+}
+
+.editButtons {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.editButtons:hover {
+    background-color: #0056b3; /* Darkens the button on hover */
+}
+
+.newInput {
+    border: none;
+    background-color: #f8f9fa;
+    height: 36px;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+.memberItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Space between each member */
+}
+.description {
+    background-color: #f0f0f0;
+    padding: 7px;
+    border-radius: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    margin-top: 7px;
+}
+.memberPic {
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures the image fits nicely in the circle */
+}
+
+@media (max-width: 826px) {
+    .profileSidebar {
+        width: 200px; /* Adjust sidebar width for smaller screens */
+    }
+}
+
+@media (max-width: 540px) {
+    .profileSidebar {
+        width: 90%; /* Full width for very small screens */
+    }
+    
+    .hideButton {
+        left: 5%; /* Adjust hide button position on small screens */
+    }
+}

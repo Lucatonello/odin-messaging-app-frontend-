@@ -110,7 +110,7 @@ p {
     height: 100%;
     width: 100%;
     padding-top: 50px; /* Adjust to the height of the top bar */
-    padding-bottom: 80px; /* Adjust to the height of the bottom bar */
+    padding-bottom: 120px; /* Adjust to the height of the bottom bar */
     overflow-y: auto; /* Enable scrolling for chat area */
 }
 .chatContainer2 {
@@ -119,7 +119,7 @@ p {
     height: 100%;
     width: calc(100% - 360px);
     padding-top: 50px; /* Adjust to the height of the top bar */
-    padding-bottom: 80px; /* Adjust to the height of the bottom bar */
+    padding-bottom: 120px; /* Adjust to the height of the bottom bar */
     overflow-y: auto; /* Enable scrolling for chat area */
 }
 .sender {

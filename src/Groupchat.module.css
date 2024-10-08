@@ -17,6 +17,7 @@
 }
 .messagesContainer {
     margin-top: 89.82px;
+    margin-bottom: 68.33px;
 }
 .rightSide {
     background-color: #007bff;
@@ -104,4 +105,27 @@
     font-weight: bold; 
     color: #666; 
     text-align: left; 
+}
+@media (max-width: 826px) {
+    .chatContainer2 {
+        width: calc(100% - 260px);
+    }
+}
+@media (max-width: 630px) {
+    .bottombar > form > input {
+        width: 350px;
+        
+    }
+}
+@media (max-width: 467px) {
+    .bottombar > form > input {
+        width: 280px;
+        
+    }
+}
+@media (max-width: 353px) {
+    .bottombar > form > input {
+        width: 240px;
+        
+    }
 }

@@ -83,7 +83,7 @@ function Groupchat() {
     };
 
     return (
-        <div>
+        <div className={styles.chatContainer}>
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 {groupMetadata.length !== 0 && (

@@ -24,6 +24,7 @@ function Login() {
 
             if (response.ok) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
                 console.log('Logged in successfully -');
                 navigate('/');
             } else {

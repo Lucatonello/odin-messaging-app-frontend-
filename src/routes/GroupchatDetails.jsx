@@ -88,6 +88,19 @@ function GroupchatDetails({ onHide, groupId }) {
                 body: JSON.stringify({ type: 'description', newData: newDescription })
             }) 
         };
+
+    const handleDeleteMember = async (member) => {
+        await fetch(`http://localhost:3000/deleteGroupMember/${groupId}/${member}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ member })
+
+        })
+          .then(window.location.reload())
+    };
     return (
         <div className={styles.profileSidebar}>
             <div className={styles.imgContainer}>
@@ -199,15 +212,17 @@ function GroupchatDetails({ onHide, groupId }) {
                                     }} 
                                 />
                                 {groupMetadata[0].admin == member ? member + ' - admin' : (
-                                    <div style={{ display: 'flex' }}>
+                                    groupMetadata[0].admin == username ? (
+                                        <div style={{ display: 'flex' }}>
                                         {member}
                                         <img 
                                             src={cross} 
                                             alt="x" 
                                             style={{ height: '20px', width: '20px', cursor: 'pointer', margin: '0px 0px 0px 7px' }}
+                                            onClick={() => handleDeleteMember(member)}
                                         />
                                     </div>
-
+                                    ) : member
                                 )}
                             </li>
                         ))

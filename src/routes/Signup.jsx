@@ -26,7 +26,7 @@ function Signup() {
                 body: formData,
             });
             if (!response.ok) {
-                throw new Error('response not okay', response); 
+                throw new Error('response not okay', response.ok); 
             }
             const result = await response.json();
             console.log('signed up ', result);

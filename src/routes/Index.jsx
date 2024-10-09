@@ -149,7 +149,7 @@ function Index() {
               </div>
             )}
              <hr />
-             <h1>Group Chats: </h1>
+             <h1>{groupChats.length !== 0 ? 'Group Chats:' : '' }</h1>
             {groupChats.length !== 0 && (
               <ul className="chatList">
                 {groupChats.map((groupchat) => (

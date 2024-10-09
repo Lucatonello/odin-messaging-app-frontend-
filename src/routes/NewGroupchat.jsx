@@ -10,6 +10,8 @@ function NewGroupChat({ onHide }) {
     const [userID, setUserID] = useState(null);
     const [allUsers, setAllUsers] = useState([]);
 
+    const currentUser = localStorage.getItem('username');
+    console.log('currentUser', currentUser);
     const token = localStorage.getItem('token');
     
     useEffect(() => {
@@ -28,7 +30,7 @@ function NewGroupChat({ onHide }) {
         const selectedUsers = selectedOptions.map(option => option.value);
         setGroupMembers(selectedUsers);
     }
-
+    console.log('all users', allUsers);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -46,6 +48,7 @@ function NewGroupChat({ onHide }) {
             },
             body: JSON.stringify(newGroupChat)
         })
+          .then(window.location.reload())
     };
 
     return (
@@ -62,10 +65,10 @@ function NewGroupChat({ onHide }) {
 
                 <label htmlFor="members">Group members: </label>
                 <select multiple onChange={handleMembersChange}>
-                    {allUsers.map((user) => (
+                    {allUsers.filter(member => member.username !== currentUser).map((user) => (
                         <option key={user.id} value={user.username}>
                             {user.username}
-                        </option>
+                        </option>                       
                     ))}
                 </select>
 

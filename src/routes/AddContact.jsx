@@ -7,8 +7,9 @@ function AddContact({ onHide }) {
     const [receiver, setReceiver] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [receiverId, setReceiverId] = useState(null);
-    const token = localStorage.getItem('token');
 
+    const token = localStorage.getItem('token');
+    const currentUser = localStorage.getItem('username');
 
     useEffect(() => {
         fetch('http://localhost:3000/getUsers')
@@ -45,8 +46,9 @@ function AddContact({ onHide }) {
                         'Content-type': 'application/json',
                     },
                     body: JSON.stringify({ newMessage })
-                });
-                setNewMessage("");
+                })
+                .then(window.location.reload())
+                .then(setNewMessage(""))
             } else {
                 console.error('ReceiverId not found')
             }      
@@ -56,13 +58,13 @@ function AddContact({ onHide }) {
     const handleUserSelect = (e) => {
         setReceiver(e.target.value);
     };
-
+    console.log(filteredUsers)
     return (
         <div className="messageFormContainer">
           <form className="messageForm" onSubmit={handleSend}>
             <label htmlFor="to">To:</label>
             <select value={receiver} onChange={handleUserSelect} required>
-                {filteredUsers.map((user) => (
+                {filteredUsers.filter(member => member.username !== currentUser).map((user) => (
                     <option key={user.id} value={user.username}>
                         {user.username}
                     </option>

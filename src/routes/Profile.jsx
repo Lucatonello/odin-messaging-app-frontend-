@@ -134,6 +134,7 @@ function Profile({ contactid, admin, onHide }) {
                         type="text"
                         value={newUsername}
                         onChange={(e) => setNewUsername(e.target.value)}
+                        maxLength={15}
                         placeholder="Enter new username"
                         className={styles.newInput}
                     />

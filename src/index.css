@@ -115,7 +115,9 @@
   background-color: #e0e0e0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+.pictures {
+  width: 180px;
+}
 .chatContainer {
   width: 100%;
   display: flex;
@@ -139,6 +141,10 @@
 @media (max-width: 650px) {
   .chatListHeader2 {
     max-width: calc(100% - 180px);
+  }
+  .chatItem {
+    display: flex;
+    flex-direction: column;
   }
 }
 @media (max-width: 830px) {

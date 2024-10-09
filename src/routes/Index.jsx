@@ -22,6 +22,8 @@ function Index() {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
+    const [pfpCount, setPfpCount] = useState(0);
+
     useEffect(() => {
       if (token) {
         const decoded = jwtDecode(token);
@@ -152,10 +154,15 @@ function Index() {
               <ul className="chatList">
                 {groupChats.map((groupchat) => (
                     <li className="chatItem" key={groupchat.id} onClick={() => navigate(`/groupChat/${groupchat.id}`)}>
-                      {groupchat.profilepics.map((pic, index) => (
-                        <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
-                      ))}
-                      <h1 className="chatUsername">{groupchat.name}</h1>
+                      <div className="pictures">
+                          {groupchat.profilepics.slice(0, 4).map((pic, index) => (
+                            <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
+                          ))}
+                      </div>
+                      <div className="groupName">
+                          <h1 className="chatUsername">{groupchat.name}</h1>
+                      </div>
+                      
                     </li>
                 ))}
               </ul>

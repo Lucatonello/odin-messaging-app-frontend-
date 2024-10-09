@@ -35,8 +35,19 @@
 .username {
     font-size: 1.5rem; /* Makes the group name prominent */
     font-weight: bold;
-    margin: 0;
+    margin-top: 15px;
     text-align: center;
+    border-radius: 10px;
+}
+.editInput {
+    font-size: 1rem; 
+    padding: 5px; 
+    margin: 10px auto; 
+    display: block;
+    width: 80%;
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .bio {

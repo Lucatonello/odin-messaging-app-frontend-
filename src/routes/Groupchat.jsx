@@ -91,7 +91,7 @@ function Groupchat() {
                         {groupMetadata.map((i, index) => ( 
                             <li key={index}>
                                 {i.id == id && (
-                                    i.profilepics.map((pic, index) => (
+                                    i.profilepics.slice(0, 13).map((pic, index) => (
                                         <img key={index} src={pic} alt="pfp" 
                                         style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} 
                                         onClick={() => setShowDetails(true)}
@@ -105,7 +105,7 @@ function Groupchat() {
                 )}
 
             </div>
-            <div className={styles.messagesContainer}>
+            <div className={!showDetails ? styles.messagesContainer: styles.messagesContainer2}>
                 <ul className={styles.messagesUl}>    
                     {messages.map((message) => (
                         <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>

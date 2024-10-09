@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from '../GroupchatDetails.module.css';
 import arrow from '../img/back-arrow.png'
+import cross from '../img/cross.png';
 import Profile from './Profile';
 
 function GroupchatDetails({ onHide, groupId }) {
@@ -110,8 +111,9 @@ function GroupchatDetails({ onHide, groupId }) {
                     <input
                         type="text"
                         value={newGroupName}
+                        maxLength={40}
                         onChange={(e) => setNewGroupName(e.target.value)}
-                        className={styles.username}
+                        className={styles.editInput}
                     />
                     ) : (
                     <h1 className={styles.username}>{groupMetadata[0]?.name || 'No name'}</h1>
@@ -139,12 +141,12 @@ function GroupchatDetails({ onHide, groupId }) {
 
             {/*Description*/}
             <div className={styles.description}>
-                <div className={groupMetadata[0]?.description ? styles.bio : ''}>
+                <div className={groupMetadata[0]?.description ? styles.description : ''}>
                     {editDescription ? (
                     <input
                         value={newDescription}
                         onChange={(e) => setNewDescription(e.target.value)}
-                        className={styles.descriptionInput} 
+                        className={styles.description} 
                     />
                     ) : (
                     <p>{groupMetadata[0]?.description || 'No description'}</p>
@@ -196,7 +198,17 @@ function GroupchatDetails({ onHide, groupId }) {
                                         setShowProfile(true)
                                     }} 
                                 />
-                                {groupMetadata[0].admin == member ? member + ' - admin' : member}
+                                {groupMetadata[0].admin == member ? member + ' - admin' : (
+                                    <div style={{ display: 'flex' }}>
+                                        {member}
+                                        <img 
+                                            src={cross} 
+                                            alt="x" 
+                                            style={{ height: '20px', width: '20px', cursor: 'pointer', margin: '0px 0px 0px 7px' }}
+                                        />
+                                    </div>
+
+                                )}
                             </li>
                         ))
                     ) : (

@@ -55,6 +55,7 @@ function NewGroupChat({ onHide }) {
                 <input 
                     type="text"
                     value={groupName}
+                    maxLength={40}
                     onChange={(e) => setGroupName(e.target.value)} 
                     required
                 />

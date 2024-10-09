@@ -51,6 +51,7 @@ function Signup() {
                 type="text" 
                 name="username"
                 value={username}
+                maxLength={15}
                 onChange={(e) => setUsername(e.target.value)}
                 className="input"
                 onFocus={(e) => e.target.style.borderColor = '#f5a462'}

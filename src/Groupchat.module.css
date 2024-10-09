@@ -19,6 +19,11 @@
     margin-top: 89.82px;
     margin-bottom: 68.33px;
 }
+.messagesContainer2 {
+    margin-top: 89.82px;
+    margin-bottom: 68.33px;
+    width: calc(100% - 360px);
+}
 .rightSide {
     background-color: #007bff;
     color: white;
@@ -107,7 +112,7 @@
     text-align: left; 
 }
 @media (max-width: 826px) {
-    .chatContainer2 {
+    .messagesContainer2 {
         width: calc(100% - 260px);
     }
 }

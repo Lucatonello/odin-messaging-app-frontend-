@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import arrow from '../img/back-arrow.png';
@@ -14,8 +14,16 @@ function Groupchat() {
     const [userId, setUserId] = useState(null);
     const [groupMetadata, setGroupMetadata] = useState([])
     const { id } = useParams();
+
+    const chatContainerRef = useRef(null);
+
     const token = localStorage.getItem('token');
+    const currentUser = localStorage.getItem('username');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     useEffect(() => {
         if (token) {
@@ -27,6 +35,7 @@ function Groupchat() {
 
     //get group messages
     useEffect(() => {
+        scrollToBottom();
         fetch(`http://localhost:3000/groupChat/${id}`, {
             method: 'GET',
             headers: {
@@ -60,7 +69,17 @@ function Groupchat() {
         } 
     }, [token, userId]);
 
-    const handleNewMessage = async () => {
+    const handleNewMessage = async (e) => {
+        e.preventDefault();
+        const newMessageData = {
+            id: messages.lenght + 1,
+            text: newMessage,
+            sentat: new Date().toISOString(),
+            sender_username: currentUser,
+            senderid: userId
+        }
+        setMessages((prevMessages) => [...prevMessages, newMessageData]);
+        scrollToBottom();
         try {
             await fetch(`http://localhost:3000/newGroupChatMessage/${id}`, {
                 method: 'POST',
@@ -74,7 +93,14 @@ function Groupchat() {
             console.error(err);
         }
     };
-
+    
+    const scrollToBottom = () => {
+        const chatContainer = chatContainerRef.current;
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    };
+    
     const icon = {
         height: '35px',
         width: '35px',
@@ -83,7 +109,7 @@ function Groupchat() {
     };
 
     return (
-        <div className={styles.chatContainer}>
+        <div ref={chatContainerRef} className={styles.chatContainer}>
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 {groupMetadata.length !== 0 && (
@@ -105,7 +131,7 @@ function Groupchat() {
                 )}
 
             </div>
-            <div className={!showDetails ? styles.messagesContainer: styles.messagesContainer2}>
+            <div ref={chatContainerRef} className={!showDetails ? styles.messagesContainer: styles.messagesContainer2}>
                 <ul className={styles.messagesUl}>    
                     {messages.map((message) => (
                         <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>

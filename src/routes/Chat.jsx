@@ -1,3 +1,4 @@
+
 import arrow from '../img/back-arrow.png';
 import bottomArrow from '../img/up-arrow.png';
 import { useState, useEffect } from "react";
@@ -15,15 +16,16 @@ function Chat() {
     const [newMessage, setNewMessage] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const { contactid } = useParams();
+
     const token = localStorage.getItem('token');
+    const currentUser = localStorage.getItem('username');
     const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
             const decoded = jwtDecode(token);
             console.log('decoded user id before asignign: ', decoded);
-            setUserId(decoded.id); // Set logged-in user ID
-            console.log('State after: ', userId);
+            setUserId(decoded.id);
             
             // Fetch chat messages and contact name
             fetch(`http://localhost:3000/chat/${contactid}`, {
@@ -52,7 +54,18 @@ function Chat() {
         }
     }, [contactid, token, userId, navigate]);
 
-    const handleNewMessage = async () => {
+    const handleNewMessage = async (e) => {
+        e.preventDefault();
+
+        const newMessageData = {
+            id: chat.length + 1,
+            text: newMessage,
+            sentat: new Date().toISOString(),
+            sender_username: currentUser,
+            senderid: userId
+        };
+
+        setChat((prevChat) => [...prevChat, newMessageData]);
         try {
             await fetch(`http://localhost:3000/newMessage/${userId}/${contactid}`, {
                 method: 'POST',
@@ -67,6 +80,7 @@ function Chat() {
             console.error(err);
         }
     };
+    
     const icon = {
         height: '35px',
         width: '35px',

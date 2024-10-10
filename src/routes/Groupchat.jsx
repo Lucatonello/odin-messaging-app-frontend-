@@ -15,7 +15,7 @@ function Groupchat() {
     const [groupMetadata, setGroupMetadata] = useState([]);
     const { id } = useParams();
     const chatContainerRef = useRef(null);
-    const messagesEndRef = useRef(null); // Reference for the dummy div
+    const messagesEndRef = useRef(null); 
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
@@ -77,7 +77,7 @@ function Groupchat() {
             senderid: userId
         };
         setMessages((prevMessages) => [...prevMessages, newMessageData]);
-        setNewMessage(""); // Clear the input after sending
+        setNewMessage("");
 
         try {
             await fetch(`http://localhost:3000/newGroupChatMessage/${id}`, {

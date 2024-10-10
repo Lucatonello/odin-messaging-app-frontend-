@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import '../AddContact.css';
 import styles from '../NewGroupChat.module.css';
 
+// eslint-disable-next-line react/prop-types
 function NewGroupChat({ onHide }) {
     const [groupName, setGroupName] = useState("");
     const [groupMembers, setGroupMembers] = useState([]);

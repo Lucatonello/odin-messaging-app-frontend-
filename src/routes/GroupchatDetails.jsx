@@ -4,6 +4,7 @@ import arrow from '../img/back-arrow.png'
 import cross from '../img/cross.png';
 import Profile from './Profile';
 
+// eslint-disable-next-line react/prop-types
 function GroupchatDetails({ onHide, groupId }) {
     const [groupMetadata, setGroupMetadata] = useState(null)
     const [showProfile, setShowProfile] = useState(false);

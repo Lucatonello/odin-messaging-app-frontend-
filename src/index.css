@@ -3,29 +3,28 @@ body {
 }
 
 .noChatsMessage {
-  text-align: center; /* Center the message */
-  font-size: 1.5rem; /* Increase font size */
-  color: #555; /* Subtle text color */
-  margin: 20px 0; /* Add some space above and below */
+  text-align: center; 
+  font-size: 1.5rem; 
+  color: #555; 
+  margin: 20px 0;
 }
 .iconGroup {
   display: flex;
-  gap: 10px; /* Space between icons */
+  gap: 10px;
 }
-/* Styling for the send first text button */
 .sendFirstTextButton {
-  padding: 10px 20px; /* Add padding */
-  font-size: 1rem; /* Font size for button */
-  color: #fff; /* Text color */
-  background-color: #007bff; /* Bootstrap primary color */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth background color change */
+  padding: 10px 20px; 
+  font-size: 1rem;
+  color: #fff; 
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .sendFirstTextButton:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #0056b3; 
 }
 
 .chatListHeader {
@@ -33,9 +32,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #f0f0f0; /* Background color for header */
-  margin-bottom: 15px; /* Space below the header */
-  position: relative; /* Position relative to handle centering */
+  background-color: #f0f0f0;
+  margin-bottom: 15px;
+  position: relative;
 }
 .chatListHeader2 {
   max-width: calc(100% - 380px);
@@ -43,23 +42,21 @@ body {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  background-color: #f0f0f0; /* Background color for header */
-  margin-bottom: 15px; /* Space below the header */
-  position: relative; /* Position relative to handle centering */
+  background-color: #f0f0f0;
+  margin-bottom: 15px;
+  position: relative;
 }
 
-/* Styling for the search container */
 .searchContainer {
-  position: absolute; /* Position the search bar absolutely */
-  left: 50%; /* Start from the center */
-  transform: translateX(-50%); /* Translate back to center */
-  width: 70%; /* Adjust width of the search bar container */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
 }
 
-/* Styling for the search bar */
 .searchBar {
   flex: 1;
-  width: 50px; /* Ensure the search bar takes up the entire container width */
+  width: 50px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -78,10 +75,9 @@ body {
   transition: border 0.3s ease;
 }
 .searchBar:focus {
-  border-color: #888; /* Change border color on focus */
+  border-color: #888;
 }
 
-/* Styling for the add contact icon */
 .addContactIcon {
   width: 30px;
   height: 30px;
@@ -91,10 +87,9 @@ body {
 }
 
 .addContactIcon:hover {
-  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  transform: scale(1.1);
 }
 
-/* Styling for the chat list remains the same */
 .chatList {
   list-style-type: none;
   padding: 0;
@@ -135,7 +130,7 @@ body {
   color: #333;
 }
 .addContactIcon:hover {
-  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  transform: scale(1.1);
 }
 @media (max-width: 826px) {
   .chatListHeader2 {
@@ -158,9 +153,9 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 10px;
-    background-color: #f0f0f0; /* Background color for header */
-    margin-bottom: 15px; /* Space below the header */
-    position: relative; /* Position relative to handle centering */
+    background-color: #f0f0f0;
+    margin-bottom: 15px;
+    position: relative;
   }
   .addContactIcon {
     margin-left: 15px;

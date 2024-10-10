@@ -22,8 +22,6 @@ function Index() {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
-    const [pfpCount, setPfpCount] = useState(0);
-
     useEffect(() => {
       if (token) {
         const decoded = jwtDecode(token);

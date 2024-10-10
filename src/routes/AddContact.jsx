@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { jwtDecode } from 'jwt-decode';
 import '../AddContact.css';
 
+// eslint-disable-next-line react/prop-types
 function AddContact({ onHide }) {
     const [newMessage, setNewMessage] = useState("");
     const [receiver, setReceiver] = useState("");

@@ -3,14 +3,14 @@ body {
 }
 .formContainer {
     position: fixed;
-    bottom: 20px; /* Adjust this to control how far from the bottom the form appears */
-    right: 20px; /* Adjust this to control how far from the right the form appears */
-    background-color: #ffffff; /* Light background color */
+    bottom: 20px;
+    right: 20px; 
+    background-color: #ffffff; 
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 250px; /* Small box size */
-    z-index: 1000; /* Make sure it’s on top of other elements */
+    width: 250px; 
+    z-index: 1000; 
 }
 
 form {

@@ -15,7 +15,7 @@ function Chat() {
     const [newMessage, setNewMessage] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const { contactid } = useParams();
-    const messagesEndRef = useRef(null); // Ref for the dummy div
+    const messagesEndRef = useRef(null); 
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
@@ -88,7 +88,7 @@ function Chat() {
 
     useEffect(() => {
         scrollToBottom();
-    }, [chat]); // Scroll whenever chat updates
+    }, [chat]);
 
     const icon = {
         height: '35px',

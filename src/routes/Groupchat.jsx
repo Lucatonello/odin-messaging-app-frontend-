@@ -8,34 +8,34 @@ import styles from '../Groupchat.module.css';
 import GroupchatDetails from './GroupchatDetails';
 
 function Groupchat() {
-    const [messages, setMessages] = useState([])
+    const [messages, setMessages] = useState([]);
     const [showDetails, setShowDetails] = useState(false);
     const [newMessage, setNewMessage] = useState("");
     const [userId, setUserId] = useState(null);
-    const [groupMetadata, setGroupMetadata] = useState([])
+    const [groupMetadata, setGroupMetadata] = useState([]);
     const { id } = useParams();
-
     const chatContainerRef = useRef(null);
+    const messagesEndRef = useRef(null); // Reference for the dummy div
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
     const navigate = useNavigate();
 
     useEffect(() => {
-        scrollToBottom();
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     }, [messages]);
 
     useEffect(() => {
         if (token) {
-          const decoded = jwtDecode(token);
-            console.log('decoded.id', decoded.id);
+            const decoded = jwtDecode(token);
             setUserId(decoded.id);
         }
-      }, [token]);
+    }, [token]);
 
-    //get group messages
+    // Get group messages
     useEffect(() => {
-        scrollToBottom();
         fetch(`http://localhost:3000/groupChat/${id}`, {
             method: 'GET',
             headers: {
@@ -43,43 +43,42 @@ function Groupchat() {
                 'Content-type': 'application/json',
             }
         })
-          .then(res => res.json())
-          .then(data => {
-            console.log('group messages: ', data);
-            setMessages(data)
-          })
+        .then(res => res.json())
+        .then(data => {
+            setMessages(data);
+        });
     }, [id, token]);
 
-    //get group metadata
+    // Get group metadata
     useEffect(() => {
         if (userId && token) {
-          fetch(`http://localhost:3000/getUserGroupChats/${userId}`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-type': 'application/json',
-            }
-          })
+            fetch(`http://localhost:3000/getUserGroupChats/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                }
+            })
             .then(res => res.json())
             .then(data => {
                 setGroupMetadata(data);
-              console.log('metadata: ', data)
             })
-            .catch(error => console.error('Fetch error:', error))
+            .catch(error => console.error('Fetch error:', error));
         } 
     }, [token, userId]);
 
     const handleNewMessage = async (e) => {
         e.preventDefault();
         const newMessageData = {
-            id: messages.lenght + 1,
+            id: messages.length + 1,
             text: newMessage,
             sentat: new Date().toISOString(),
             sender_username: currentUser,
             senderid: userId
-        }
+        };
         setMessages((prevMessages) => [...prevMessages, newMessageData]);
-        scrollToBottom();
+        setNewMessage(""); // Clear the input after sending
+
         try {
             await fetch(`http://localhost:3000/newGroupChatMessage/${id}`, {
                 method: 'POST',
@@ -88,16 +87,9 @@ function Groupchat() {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify({ newMessage: newMessage, userId: userId })
-            })
-        } catch(err) {
+            });
+        } catch (err) {
             console.error(err);
-        }
-    };
-    
-    const scrollToBottom = () => {
-        const chatContainer = chatContainerRef.current;
-        if (chatContainer) {
-            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
     };
     
@@ -126,19 +118,20 @@ function Groupchat() {
                                 )}  
                                 <h1 style={{ margin: '0' }}>{(i.name && i.id == id) && i.name }</h1>
                             </li>
-                        ))}
+                        ))} 
                     </ul>
                 )}
-
             </div>
-            <div ref={chatContainerRef} className={!showDetails ? styles.messagesContainer: styles.messagesContainer2}>
+            <div className={!showDetails ? styles.messagesContainer : styles.messagesContainer2}>
                 <ul className={styles.messagesUl}>    
                     {messages.map((message) => (
                         <li key={message.id} className={message.senderid === userId ? styles.rightSideli : styles.leftSideli}>
                             <p className={styles.sender}>{message.senderid !== userId ? message.username: ''}</p>
-                            <p className={message.senderid == userId ? styles.rightSide : styles.leftSide}>{message.text}</p>
+                            <p className={message.senderid === userId ? styles.rightSide : styles.leftSide}>{message.text}</p>
                         </li>
                     ))}
+                    {/* Dummy div for scrolling */}
+                    <div ref={messagesEndRef} /> 
                 </ul>    
             </div>
 
@@ -160,7 +153,7 @@ function Groupchat() {
             </div>
             {showDetails && <GroupchatDetails onHide={() => setShowDetails(false)} groupId={id} />}
         </div>
-    )
+    );
 }
 
 export default Groupchat;

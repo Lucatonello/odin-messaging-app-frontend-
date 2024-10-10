@@ -1,7 +1,6 @@
-
 import arrow from '../img/back-arrow.png';
 import bottomArrow from '../img/up-arrow.png';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Profile from './Profile';
@@ -16,6 +15,7 @@ function Chat() {
     const [newMessage, setNewMessage] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const { contactid } = useParams();
+    const messagesEndRef = useRef(null); // Ref for the dummy div
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
@@ -24,7 +24,6 @@ function Chat() {
     useEffect(() => {
         if (token) {
             const decoded = jwtDecode(token);
-            console.log('decoded user id before asignign: ', decoded);
             setUserId(decoded.id);
             
             // Fetch chat messages and contact name
@@ -38,8 +37,7 @@ function Chat() {
             .then(res => res.json())
             .then(data => {
                 setChat(data);
-                setPfp(userId == data[0].senderid ? data[0].receiver_profilepic : data[0].sender_profilepic)
-                console.log('data', data);
+                setPfp(userId == data[0].senderid ? data[0].receiver_profilepic : data[0].sender_profilepic);
                 if (data.length > 0) {
                     const contact = data[0].senderid === decoded.id
                         ? data[0].receiver_username
@@ -64,6 +62,7 @@ function Chat() {
             sender_username: currentUser,
             senderid: userId
         };
+        setNewMessage("");
 
         setChat((prevChat) => [...prevChat, newMessageData]);
         try {
@@ -74,13 +73,23 @@ function Chat() {
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify({ newMessage })
-            })
-            setNewMessage("");
+            });
+            
         } catch (err) {
             console.error(err);
         }
     };
-    
+
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [chat]); // Scroll whenever chat updates
+
     const icon = {
         height: '35px',
         width: '35px',
@@ -89,7 +98,7 @@ function Chat() {
     };
 
     return (
-        <div className={ !showProfile ? styles.chatContainer : styles.chatContainer2 }>
+        <div className={!showProfile ? styles.chatContainer : styles.chatContainer2}>
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 <img 
@@ -104,13 +113,13 @@ function Chat() {
             <ul>
                 {chat.map((c) => (
                     <li key={c.id} className={c.senderid === userId ? styles.rightSideli : styles.leftSideli}>
-                        <p className={styles.sender}>{c.senderid !== userId ? c.sender_username: ''}</p>
+                        <p className={styles.sender}>{c.senderid !== userId ? c.sender_username : ''}</p>
                         <div className={c.senderid === userId ? styles.rightSide : styles.leftSide}>
                             <p>{c.text}</p>
-                            {/* <p>{c.sentat}</p> */}
                         </div>
                     </li>
                 ))}
+                <div ref={messagesEndRef} /> {/* Dummy div at the end of the list */}
             </ul>
             <div className={styles.bottombar}>
                 <form onSubmit={handleNewMessage}>
@@ -134,7 +143,7 @@ function Chat() {
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default Chat;

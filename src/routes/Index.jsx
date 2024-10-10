@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import '../Index.css';
+import '../index.css';
 import Profile from './Profile';
 import AddContact from './AddContact';
 import NewGroupChat from './NewGroupchat';

@@ -20,7 +20,7 @@ function NewGroupChat({ onHide }) {
             const decoded = jwtDecode(token);
             setUserID(decoded.id);
         }
-        fetch('http://localhost:3000/getUsers')
+        fetch('https://odin-messaging-app-backend.onrender.com/getUsers')
           .then(res => res.json())
           .then(data => setAllUsers(data))
           .catch(err => console.error(err))
@@ -41,7 +41,7 @@ function NewGroupChat({ onHide }) {
             members: groupMembers
         };
 
-        await fetch(`http://localhost:3000/createGroupChat/${userID}`, {
+        await fetch(`https://odin-messaging-app-backend.onrender.com/createGroupChat/${userID}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

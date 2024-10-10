@@ -36,7 +36,7 @@ function Groupchat() {
 
     // Get group messages
     useEffect(() => {
-        fetch(`http://localhost:3000/groupChat/${id}`, {
+        fetch(`https://odin-messaging-app-backend.onrender.com/groupChat/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ function Groupchat() {
     // Get group metadata
     useEffect(() => {
         if (userId && token) {
-            fetch(`http://localhost:3000/getUserGroupChats/${userId}`, {
+            fetch(`https://odin-messaging-app-backend.onrender.com/getUserGroupChats/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ function Groupchat() {
         setNewMessage("");
 
         try {
-            await fetch(`http://localhost:3000/newGroupChatMessage/${id}`, {
+            await fetch(`https://odin-messaging-app-backend.onrender.com/newGroupChatMessage/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

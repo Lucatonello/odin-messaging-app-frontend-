@@ -27,7 +27,7 @@ function Chat() {
             setUserId(decoded.id);
             
             // Fetch chat messages and contact name
-            fetch(`http://localhost:3000/chat/${contactid}`, {
+            fetch(`https://odin-messaging-app-backend.onrender.com/chat/${contactid}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -66,7 +66,7 @@ function Chat() {
 
         setChat((prevChat) => [...prevChat, newMessageData]);
         try {
-            await fetch(`http://localhost:3000/newMessage/${userId}/${contactid}`, {
+            await fetch(`https://odin-messaging-app-backend.onrender.com/newMessage/${userId}/${contactid}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

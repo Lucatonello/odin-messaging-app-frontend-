@@ -32,7 +32,7 @@ function Index() {
 
     useEffect(() => {
       if (userId && token) {
-        fetch('http://localhost:3000/', {
+        fetch('https://odin-messaging-app-backend.onrender.com/', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -57,7 +57,7 @@ function Index() {
     
     useEffect(() => {
       if (userId && token) {
-        fetch(`http://localhost:3000/getUserGroupChats/${userId}`, {
+        fetch(`https://odin-messaging-app-backend.onrender.com/getUserGroupChats/${userId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -15,7 +15,7 @@ function Profile({ contactid, admin, onHide }) {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        fetch(`http://localhost:3000/profiles/${contactid}`, {
+        fetch(`https://odin-messaging-app-backend.onrender.com/profiles/${contactid}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -39,7 +39,7 @@ function Profile({ contactid, admin, onHide }) {
               username: newUsername,
             }));
     
-            await fetch(`http://localhost:3000/editData/${contactid}`, {
+            await fetch(`https://odin-messaging-app-backend.onrender.com/editData/${contactid}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -59,7 +59,7 @@ function Profile({ contactid, admin, onHide }) {
               bio: newBio,
             }));
     
-            await fetch(`http://localhost:3000/editData/${contactid}`, {
+            await fetch(`https://odin-messaging-app-backend.onrender.com/editData/${contactid}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -88,7 +88,7 @@ function Profile({ contactid, admin, onHide }) {
         formData.append('pfp', newPfp);
         formData.append('type', 'pfp');
     
-        await fetch(`http://localhost:3000/editData/${contactid}`, {
+        await fetch(`https://odin-messaging-app-backend.onrender.com/editData/${contactid}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,

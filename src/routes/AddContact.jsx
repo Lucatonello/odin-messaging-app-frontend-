@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { jwtDecode } from 'jwt-decode';
 import '../AddContact.css';
@@ -8,7 +7,6 @@ function AddContact({ onHide }) {
     const [newMessage, setNewMessage] = useState("");
     const [receiver, setReceiver] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
-    const [receiverId, setReceiverId] = useState(null);
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
@@ -27,38 +25,41 @@ function AddContact({ onHide }) {
             const decoded = jwtDecode(token);
             const senderId = decoded.id;
 
-            const response = await fetch(`http://localhost:3000/getReceiverId`, {
+           await fetch(`https://odin-messaging-app-backend.onrender.com/getReceiverId`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify({ receiver })
-            });
+            })
+              .then(res => res.json())
+              .then(async (data) => {
+                const fetchedReceiverId = data.id;
+                console.log('this is the receiver id', fetchedReceiverId);
 
-            const data = await response.json();
-            console.log('data, receiver id: ', data.id);
-            setReceiverId(data.id);
-
-             if (data.id) {
-                await fetch(`https://odin-messaging-app-backend.onrender.com/newMessage/${senderId}/${data.id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-type': 'application/json',
-                    },
-                    body: JSON.stringify({ newMessage })
-                })
-                .then(window.location.reload())
-                .then(setNewMessage(""))
-            } else {
-                console.error('ReceiverId not found')
-            }      
+                if (fetchedReceiverId) {
+                    await fetch(`https://odin-messaging-app-backend.onrender.com/newMessage/${senderId}/${fetchedReceiverId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-type': 'application/json',
+                        },
+                        body: JSON.stringify({ newMessage })
+                    })
+                    // .then(window.location.reload())
+                    .then(setNewMessage(""))
+                } else {
+                    console.error('ReceiverId not found')
+                }      
+              })
+              .catch((error) => console.error('Error fetching receiver ID:', error));
         }
     };
 
     const handleUserSelect = (e) => {
         setReceiver(e.target.value);
+        console.log('state of receiver:', receiver);
     };
     return (
         <div className="messageFormContainer">

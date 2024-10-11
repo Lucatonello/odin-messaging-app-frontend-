@@ -27,7 +27,7 @@ function AddContact({ onHide }) {
             const decoded = jwtDecode(token);
             const senderId = decoded.id;
 
-            const response = await fetch(`https://odin-messaging-app-backend.onrender.com/getReceiverId`, {
+            const response = await fetch(`http://localhost:3000/getReceiverId`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -60,7 +60,6 @@ function AddContact({ onHide }) {
     const handleUserSelect = (e) => {
         setReceiver(e.target.value);
     };
-    console.log(filteredUsers)
     return (
         <div className="messageFormContainer">
           <form className="messageForm" onSubmit={handleSend}>

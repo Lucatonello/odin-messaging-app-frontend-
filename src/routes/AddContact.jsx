@@ -47,7 +47,6 @@ function AddContact({ onHide }) {
                         },
                         body: JSON.stringify({ newMessage })
                     })
-                    // .then(window.location.reload())
                     .then(setNewMessage(""))
                 } else {
                     console.error('ReceiverId not found')
@@ -58,14 +57,18 @@ function AddContact({ onHide }) {
     };
 
     const handleUserSelect = (e) => {
-        setReceiver(e.target.value);
-        console.log('state of receiver:', receiver);
+        const selectedReceiver = e.target.value;
+        setReceiver(selectedReceiver);
     };
+    useEffect(() => {
+        console.log('state of receiver:', receiver);
+    }, [receiver])
     return (
         <div className="messageFormContainer">
           <form className="messageForm" onSubmit={handleSend}>
             <label htmlFor="to">To:</label>
             <select value={receiver} onChange={handleUserSelect} required>
+                <option value="" disabled></option>
                 {filteredUsers.filter(member => member.username !== currentUser).map((user) => (
                     <option key={user.id} value={user.username}>
                         {user.username}

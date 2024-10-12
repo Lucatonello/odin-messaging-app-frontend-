@@ -1,5 +1,6 @@
 import arrow from '../img/back-arrow.png';
 import bottomArrow from '../img/up-arrow.png';
+import defaultPfp from '../img/user.png';
 import { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
@@ -102,7 +103,7 @@ function Chat() {
             <div className={styles.topbar}>
                 <img src={arrow} alt="<-" style={icon} onClick={() => navigate('/')}/>
                 <img 
-                    src={pfp}
+                    src={pfp ? pfp : defaultPfp}
                     alt="pfp" style={icon} 
                     onClick={() => setShowProfile(true)} 
                 />

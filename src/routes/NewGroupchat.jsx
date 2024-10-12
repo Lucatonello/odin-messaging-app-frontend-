@@ -49,7 +49,6 @@ function NewGroupChat({ onHide }) {
             },
             body: JSON.stringify(newGroupChat)
         })
-          .then(window.location.reload())
     };
 
     return (

@@ -86,6 +86,7 @@ function Signup() {
                     name="pfp"
                     id="fileUpload"
                     onChange={handleFileChange}
+                    accept=".png, .jpg, .jpeg"
                 />
             </div>
 

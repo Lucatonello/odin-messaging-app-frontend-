@@ -8,6 +8,7 @@ import NewGroupChat from './NewGroupchat';
 import addContactIcon from '../img/add-contact.png'
 import group from '../img/group.png';
 import logout from '../img/logoute.png'
+import defaulfPfp from '../img/user.png'
 
 function Index() {
     const [chats, setChats] = useState([]);
@@ -27,8 +28,10 @@ function Index() {
         const decoded = jwtDecode(token);
           console.log('decoded.id', decoded.id);
           setUserId(decoded.id);
+      } else {
+        navigate('/signup');
       }
-    }, [token]);
+    }, [token, navigate]);
 
     useEffect(() => {
       if (userId && token) {
@@ -102,7 +105,7 @@ function Index() {
                   onClick={() => setShowAddContact(true)} 
                 />
                 <img 
-                  src={profilePic} 
+                  src={profilePic ? profilePic : defaulfPfp} 
                   alt="Profile" 
                   style={{ borderRadius: '50%', cursor: 'pointer' }}
                   className="addContactIcon" 

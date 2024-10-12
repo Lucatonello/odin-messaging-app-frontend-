@@ -100,7 +100,7 @@ function GroupchatDetails({ onHide, groupId }) {
             body: JSON.stringify({ member })
 
         })
-          .then(window.location.reload())
+          .then(() => window.location.reload())
     };
     return (
         <div className={styles.profileSidebar}>

@@ -47,7 +47,8 @@ function AddContact({ onHide }) {
                         },
                         body: JSON.stringify({ newMessage })
                     })
-                    .then(setNewMessage(""))
+                    .then(() => setNewMessage(""))
+
                 } else {
                     console.error('ReceiverId not found')
                 }      

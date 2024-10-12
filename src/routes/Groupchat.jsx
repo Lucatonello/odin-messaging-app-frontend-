@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import arrow from '../img/back-arrow.png';
 import bottomArrow from '../img/up-arrow.png';
+import defaulfPfp from '../img/user.png';
 import { useNavigate } from 'react-router-dom';  
 import styles from '../Groupchat.module.css';   
 import GroupchatDetails from './GroupchatDetails';
@@ -110,7 +111,7 @@ function Groupchat() {
                             <li key={index}>
                                 {i.id == id && (
                                     i.profilepics.slice(0, 13).map((pic, index) => (
-                                        <img key={index} src={pic} alt="pfp" 
+                                        <img key={index} src={pic ? pic : defaulfPfp} alt="pfp" 
                                         style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} 
                                         onClick={() => setShowDetails(true)}
                                         />

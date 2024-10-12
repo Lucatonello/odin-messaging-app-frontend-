@@ -28,3 +28,9 @@ odin-messaging-app is a web-based application i made as part of The Odin Project
     npm run dev
 4. Open it
 In your browser, navigate to: http://localhost:5173/
+
+## Explore the Backend
+
+Discover the backend repository for the odin-messaging-app, where you can find the code and architecture that power the application.
+
+Check it out here: [Backend Repository](https://github.com/Lucatonello/odin-messaging-app-backend)

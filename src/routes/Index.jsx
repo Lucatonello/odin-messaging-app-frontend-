@@ -137,7 +137,7 @@ function Index() {
                 {filteredChats.map((chat) => (
                   <li key={chat.id} className="chatItem">
                     <div className="chatContainer" onClick={() => navigate(`/chat/${chat.id}`)}>
-                      <img src={chat.profilepic} style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} alt="" />
+                      <img src={chat.profilepic ? chat.profilepic : defaulfPfp} style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
                       <h1 className="chatUsername">{chat.username}</h1>
                     </div>
                   </li>
@@ -157,7 +157,7 @@ function Index() {
                     <li className="chatItem" key={groupchat.id} onClick={() => navigate(`/groupChat/${groupchat.id}`)}>
                       <div className="pictures">
                           {groupchat.profilepics.slice(0, 4).map((pic, index) => (
-                            <img key={index} src={pic} alt="pfp" style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
+                            <img key={index} src={pic ? pic : defaulfPfp} style={{ height: '35px', width: '35px', marginRight: '10px', borderRadius: '50%', cursor: 'pointer' }} />
                           ))}
                       </div>
                       <div className="groupName">

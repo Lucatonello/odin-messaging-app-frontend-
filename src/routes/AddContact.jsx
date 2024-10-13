@@ -7,6 +7,7 @@ function AddContact({ onHide }) {
     const [newMessage, setNewMessage] = useState("");
     const [receiver, setReceiver] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const [notification, setNotification] = useState("");
 
     const token = localStorage.getItem('token');
     const currentUser = localStorage.getItem('username');
@@ -47,14 +48,24 @@ function AddContact({ onHide }) {
                         },
                         body: JSON.stringify({ newMessage })
                     })
-                    .then(() => setNewMessage(""))
-
                 } else {
                     console.error('ReceiverId not found')
                 }      
               })
               .catch((error) => console.error('Error fetching receiver ID:', error));
         }
+    };
+    const waitAndDoSomething = async () => {
+        // Create a delay using a Promise
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    
+        console.log("Waiting for 5 seconds...");
+    
+        // Await for 5 seconds (5000 milliseconds)
+        await delay(5000);
+    
+        // Do something after the delay
+        console.log("5 seconds have passed! Now doing something...");
     };
 
     const handleUserSelect = (e) => {
@@ -63,7 +74,9 @@ function AddContact({ onHide }) {
     };
     useEffect(() => {
         console.log('state of receiver:', receiver);
-    }, [receiver])
+        console.log('state of notification:', notification);
+
+    }, [receiver, notification])
     return (
         <div className="messageFormContainer">
           <form className="messageForm" onSubmit={handleSend}>
@@ -84,8 +97,12 @@ function AddContact({ onHide }) {
               placeholder="Message"
               required
             />
-            <button style={{ marginBottom: '5px'}} type="submit">Send</button>
+            <button style={{ marginBottom: '5px'}} type="submit" onClick={() => {
+                setNotification('Message Sent');
+            }}
+            >Send</button>
             <button onClick={onHide} id="hideButton">Cancel</button>
+            {notification && <p style={{ textAlign: 'center', color: '#007bff' }}>{notification}</p>}
           </form>
         </div>
       );

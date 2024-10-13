@@ -10,6 +10,7 @@ function NewGroupChat({ onHide }) {
     const [description, setDescription] = useState("");
     const [userID, setUserID] = useState(null);
     const [allUsers, setAllUsers] = useState([]);
+    const [notification, setNotification] = useState("");
 
     const currentUser = localStorage.getItem('username');
     console.log('currentUser', currentUser);
@@ -79,8 +80,9 @@ function NewGroupChat({ onHide }) {
                     onChange={(e) => setDescription(e.target.value)} 
                 />
 
-                <button type="submit" className={styles.button}>Create</button>
+                <button type="submit" className={styles.button} onClick={() => setNotification('Group Chat Created')}>Create</button>
                 <button onClick={onHide} className={styles.cancelButton}>Cancel</button>
+                {notification && <p style={{ textAlign: 'center', color: '#007bff'}}>{notification}</p>}
             </form>
         </div>
     )

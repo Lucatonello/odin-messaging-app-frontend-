@@ -55,19 +55,7 @@ function AddContact({ onHide }) {
               .catch((error) => console.error('Error fetching receiver ID:', error));
         }
     };
-    const waitAndDoSomething = async () => {
-        // Create a delay using a Promise
-        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     
-        console.log("Waiting for 5 seconds...");
-    
-        // Await for 5 seconds (5000 milliseconds)
-        await delay(5000);
-    
-        // Do something after the delay
-        console.log("5 seconds have passed! Now doing something...");
-    };
-
     const handleUserSelect = (e) => {
         const selectedReceiver = e.target.value;
         setReceiver(selectedReceiver);

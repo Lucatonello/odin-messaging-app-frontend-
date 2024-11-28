@@ -21,7 +21,7 @@ function NewGroupChat({ onHide }) {
             const decoded = jwtDecode(token);
             setUserID(decoded.id);
         }
-        fetch('https://odin-messaging-app-backend.onrender.com/getUsers')
+        fetch('https://odin-messaging-app-backend-production.up.railway.app/getUsers')
           .then(res => res.json())
           .then(data => setAllUsers(data))
           .catch(err => console.error(err))
@@ -42,7 +42,7 @@ function NewGroupChat({ onHide }) {
             members: groupMembers
         };
 
-        await fetch(`https://odin-messaging-app-backend.onrender.com/createGroupChat/${userID}`, {
+        const response = await fetch(`https://odin-messaging-app-backend-production.up.railway.app/createGroupChat/${userID}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -50,6 +50,10 @@ function NewGroupChat({ onHide }) {
             },
             body: JSON.stringify(newGroupChat)
         })
+        const result = await response.json();
+        if (result.isDone) {
+            window.location.reload();
+        }
     };
 
     return (

@@ -37,7 +37,7 @@ function Groupchat() {
 
     // Get group messages
     useEffect(() => {
-        fetch(`https://odin-messaging-app-backend.onrender.com/groupChat/${id}`, {
+        fetch(`https://odin-messaging-app-backend-production.up.railway.app/groupChat/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -53,7 +53,7 @@ function Groupchat() {
     // Get group metadata
     useEffect(() => {
         if (userId && token) {
-            fetch(`https://odin-messaging-app-backend.onrender.com/getUserGroupChats/${userId}`, {
+            fetch(`https://odin-messaging-app-backend-production.up.railway.app/getUserGroupChats/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -81,7 +81,7 @@ function Groupchat() {
         setNewMessage("");
 
         try {
-            await fetch(`https://odin-messaging-app-backend.onrender.com/newGroupChatMessage/${id}`, {
+            await fetch(`https://odin-messaging-app-backend-production.up.railway.app/newGroupChatMessage/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

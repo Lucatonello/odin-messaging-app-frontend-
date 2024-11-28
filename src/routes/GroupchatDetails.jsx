@@ -22,7 +22,7 @@ function GroupchatDetails({ onHide, groupId }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`https://odin-messaging-app-backend.onrender.com/groupChatInfo/${groupId}`, {
+        fetch(`https://odin-messaging-app-backend-production.up.railway.app/groupChatInfo/${groupId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -59,7 +59,7 @@ function GroupchatDetails({ onHide, groupId }) {
                     return group;
                 });
             });
-            await fetch(`https://odin-messaging-app-backend.onrender.com/editGroupData/${groupMetadata[0].id}`, {
+            await fetch(`https://odin-messaging-app-backend-production.up.railway.app/editGroupData/${groupMetadata[0].id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ function GroupchatDetails({ onHide, groupId }) {
                 });
             });
 
-            await fetch(`https://odin-messaging-app-backend.onrender.com/editGroupData/${groupMetadata[0].id}`, {
+            await fetch(`https://odin-messaging-app-backend-production.up.railway.app/editGroupData/${groupMetadata[0].id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -91,7 +91,7 @@ function GroupchatDetails({ onHide, groupId }) {
         };
 
     const handleDeleteMember = async (member) => {
-        await fetch(`https://odin-messaging-app-backend.onrender.com/deleteGroupMember/${groupId}/${member}`, {
+        await fetch(`https://odin-messaging-app-backend-production.up.railway.app/deleteGroupMember/${groupId}/${member}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,

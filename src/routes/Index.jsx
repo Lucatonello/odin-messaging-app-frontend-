@@ -18,7 +18,8 @@ function Index() {
     const [showProfile, setShowProfile] = useState(false);
     const [userId, setUserId] = useState(null);
     const [profilePic, setProfilePic] = useState("");
-    const [showGC, setShowNewGC] = useState(false)
+    const [showGC, setShowNewGC] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Index() {
 
     useEffect(() => {
       if (userId && token) {
-        fetch('https://odin-messaging-app-backend.onrender.com/', {
+        fetch('https://odin-messaging-app-backend-production.up.railway.app/', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -45,6 +46,7 @@ function Index() {
           .then(res => res.json())
           .then(data => {
             setChats(data.contacts);
+            setIsLoading(false);
 
             const currentUser = data.currentUser;
             console.log('current user', currentUser);
@@ -60,7 +62,7 @@ function Index() {
     
     useEffect(() => {
       if (userId && token) {
-        fetch(`https://odin-messaging-app-backend.onrender.com/getUserGroupChats/${userId}`, {
+        fetch(`https://odin-messaging-app-backend-production.up.railway.app/getUserGroupChats/${userId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -132,7 +134,7 @@ function Index() {
                 </div>
             </div>
 
-            {chats.length !== 0 ? (
+            {!isLoading && chats && chats.length > 0 ? (
               <ul className="chatList">
                 {filteredChats.map((chat) => (
                   <li key={chat.id} className="chatItem">
@@ -143,7 +145,11 @@ function Index() {
                   </li>
                 ))}
               </ul>
-            ) : (
+            ) : isLoading ? (
+                <div className="noChatsMessage">
+                  <h1>Loading...</h1>
+                </div>
+            ) : chats && chats.length == 0 && (
               <div className="noChatsMessage">
                 <h1>No chats yet...</h1>
                 <button className="sendFirstTextButton" onClick={() => setShowAddContact(true)}>Send your first text</button>

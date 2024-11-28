@@ -13,7 +13,7 @@ function AddContact({ onHide }) {
     const currentUser = localStorage.getItem('username');
 
     useEffect(() => {
-        fetch('https://odin-messaging-app-backend.onrender.com/getUsers')
+        fetch('https://odin-messaging-app-backend-production.up.railway.app/getUsers')
           .then(res => res.json())
           .then(data => setFilteredUsers(data))
           .catch(err => console.error(err))
@@ -26,7 +26,7 @@ function AddContact({ onHide }) {
             const decoded = jwtDecode(token);
             const senderId = decoded.id;
 
-           await fetch(`https://odin-messaging-app-backend.onrender.com/getReceiverId`, {
+           await fetch(`https://odin-messaging-app-backend-production.up.railway.app/getReceiverId`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -40,7 +40,7 @@ function AddContact({ onHide }) {
                 console.log('this is the receiver id', fetchedReceiverId);
 
                 if (fetchedReceiverId) {
-                    await fetch(`https://odin-messaging-app-backend.onrender.com/newMessage/${senderId}/${fetchedReceiverId}`, {
+                    const response = await fetch(`https://odin-messaging-app-backend-production.up.railway.app/newMessage/${senderId}/${fetchedReceiverId}`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -48,6 +48,10 @@ function AddContact({ onHide }) {
                         },
                         body: JSON.stringify({ newMessage })
                     })
+                    const result = await response.json();
+                    if (result.isDone) {
+                        window.location.reload();
+                    }
                 } else {
                     console.error('ReceiverId not found')
                 }      

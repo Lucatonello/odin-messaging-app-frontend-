@@ -21,7 +21,7 @@ function Signup() {
         formData.append('pfp', pfp);
 
         try {
-            const response = await fetch('https://odin-messaging-app-backend.onrender.com/users/signup', {
+            const response = await fetch('https://odin-messaging-app-backend-production.up.railway.app/users/signup', {
                 method: 'POST',
                 body: formData,
             });

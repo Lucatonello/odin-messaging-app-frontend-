@@ -12,7 +12,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch('https://odin-messaging-app-backend.onrender.com/users/login', {
+            const response = await fetch('https://odin-messaging-app-backend-production.up.railway.app/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
